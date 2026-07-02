@@ -53,6 +53,7 @@
         "sonner": "^2.0.7",
         "tailwind-merge": "^3.5.0",
         "tailwindcss": "^4.2.1",
+        "tinybase": "^8.5.0",
         "tw-animate-css": "^1.3.4",
         "vaul": "^1.1.2",
         "vite-tsconfig-paths": "^6.0.2",
@@ -1063,6 +1064,8 @@
     "thenify-all": ["thenify-all@1.6.0", "", { "dependencies": { "thenify": ">= 3.1.0 < 4" } }, "sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA=="],
 
     "tiny-invariant": ["tiny-invariant@1.3.3", "", {}, "sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg=="],
+
+    "tinybase": ["tinybase@8.5.0", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/tinybase/-/tinybase-8.5.0.tgz", { "peerDependencies": { "@automerge/automerge-repo": "^2.5.6", "@cloudflare/workers-types": "^4.20260621.1", "@electric-sql/pglite": "^0.5.3", "@libsql/client": "^0.17.4", "@powersync/common": "^1.55.0", "@sinclair/typebox": "^0.34.49", "@sqlite.org/sqlite-wasm": "^3.53.0-build1", "@vlcn.io/crsqlite-wasm": "^0.16.0", "arktype": "^2.2.1", "bun": "^1.3.14", "effect": "^3.21.4", "electric-sql": "^0.12.1", "expo": "^56.0.12", "expo-sqlite": "^56.0.5", "partykit": "^0.0.115", "partysocket": "^1.2.0", "postgres": "^3.4.9", "react": "^19.2.7", "react-dom": "^19.2.7", "react-native-mmkv": "4.3.1", "react-native-sqlite-storage": "^6.0.1", "solid-js": "^1.9.13", "sqlite3": "^5.1.7", "svelte": "^5.56.3", "valibot": "^1.4.1", "ws": "^8.21.0", "yjs": "^13.6.31", "zod": "^4.4.3" }, "optionalPeers": ["@automerge/automerge-repo", "@cloudflare/workers-types", "@electric-sql/pglite", "@libsql/client", "@powersync/common", "@sinclair/typebox", "@sqlite.org/sqlite-wasm", "@vlcn.io/crsqlite-wasm", "arktype", "bun", "effect", "electric-sql", "expo", "expo-sqlite", "partykit", "partysocket", "postgres", "react", "react-dom", "react-native-mmkv", "react-native-sqlite-storage", "solid-js", "sqlite3", "svelte", "valibot", "ws", "yjs", "zod"] }, "sha512-4PSCmCVH2Eq5LK7vHI1h4HoVWDYwhwH+js6qS1wmgGoYxmSn16icGvHM4/GOOWGCRYwVJ46Ve3UbiDkFL+3O6Q=="],
 
     "tinyglobby": ["tinyglobby@0.2.17", "", { "dependencies": { "fdir": "^6.5.0", "picomatch": "^4.0.4" } }, "sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g=="],
 

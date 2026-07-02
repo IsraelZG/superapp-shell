@@ -1,6 +1,9 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "./styles/tokens-global.css";
+@import "./styles/theme-light.css";
+@import "./styles/theme-dark.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -141,4 +144,41 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+}
+
+/*
+ * Map shadcn theme variables onto the design system (--ds-*) tokens so every
+ * shadcn component picks up the SuperApp visual language automatically.
+ * The token files already handle light/dark via [data-theme] on <html>.
+ */
+:root[data-theme="light"],
+:root[data-theme="dark"] {
+  --background: var(--ds-theme-surface-canvas);
+  --foreground: var(--ds-theme-content-default);
+  --card: var(--ds-component-card-bg);
+  --card-foreground: var(--ds-theme-content-default);
+  --popover: var(--ds-component-popover-bg);
+  --popover-foreground: var(--ds-theme-content-default);
+  --primary: var(--ds-theme-intent-accent-fill);
+  --primary-foreground: var(--ds-theme-intent-accent-on-fill);
+  --secondary: var(--ds-theme-surface-subdued);
+  --secondary-foreground: var(--ds-theme-content-default);
+  --muted: var(--ds-theme-surface-subdued);
+  --muted-foreground: var(--ds-theme-content-muted);
+  --accent: var(--ds-theme-intent-accent-subtle);
+  --accent-foreground: var(--ds-theme-intent-accent-on-subtle);
+  --destructive: var(--ds-theme-intent-danger-fill);
+  --destructive-foreground: var(--ds-theme-intent-danger-on-fill);
+  --border: var(--ds-theme-border-subtle);
+  --input: var(--ds-theme-border-default);
+  --ring: var(--ds-theme-border-focus);
+  --radius: 1rem;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background-color: var(--ds-theme-surface-canvas);
+  color: var(--ds-theme-content-default);
 }
