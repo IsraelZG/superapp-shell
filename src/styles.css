@@ -4,6 +4,8 @@
 @import "./styles/tokens-global.css";
 @import "./styles/theme-light.css";
 @import "./styles/theme-dark.css";
+@import "flexlayout-react/style/light.css";
+@import "./styles/flexlayout-ds.css";
 
 @custom-variant dark (&:is(.dark *));
 
