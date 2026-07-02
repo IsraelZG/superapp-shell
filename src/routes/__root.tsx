@@ -78,11 +78,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "SuperApp — Local-first super-app" },
+      {
+        name: "description",
+        content:
+          "SuperApp is a local-first super-app shell for messaging, identity, sync and media — mockup preview.",
+      },
+      { name: "author", content: "SuperApp" },
+      { property: "og:title", content: "SuperApp — Local-first super-app" },
+      {
+        property: "og:description",
+        content: "Local-first super-app shell — mockup preview.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
