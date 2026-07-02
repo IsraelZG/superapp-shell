@@ -39,7 +39,7 @@ const initialTables = {
 };
 
 const initialValues = {
-  activeNav: "inicio",
+  activeNav: "social",
   activeComms: "chat",
   theme: "light" as "light" | "dark",
   sidebarCollapsed: false,
