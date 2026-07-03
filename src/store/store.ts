@@ -64,6 +64,18 @@ const initialTables = {
   blocks: {
     b1: { profileName: "Perfil Spam #4821", blockedAt: "2026-06-20" },
   },
+  peers: {
+    p1: { name: "MacBook — Israel", status: "online", lastSeen: "agora" },
+    p2: { name: "iPhone — Israel", status: "syncing", lastSeen: "há 2 min" },
+    p3: { name: "Ana Ribeiro", status: "offline", lastSeen: "há 3 h" },
+  },
+  notifications: {
+    n1: { title: "Novo consentimento pendente", body: "Assistente de Agenda pediu acesso ao calendário.", read: false, createdAt: "2026-07-03T09:12:00Z", kind: "consent" },
+    n2: { title: "Sincronização concluída", body: "Seus dispositivos estão em dia.", read: false, createdAt: "2026-07-03T08:44:00Z", kind: "sync" },
+    n3: { title: "Ana comentou seu post", body: "\"Muito bom, adorei!\"", read: true, createdAt: "2026-07-02T21:03:00Z", kind: "social" },
+    n4: { title: "Nova versão disponível", body: "SuperApp 1.4 traz melhorias no editor de tema.", read: false, createdAt: "2026-07-02T15:20:00Z", kind: "info" },
+    n5: { title: "Peer offline", body: "iPhone — Israel ficou offline.", read: true, createdAt: "2026-07-01T22:11:00Z", kind: "sync" },
+  },
 };
 
 const initialValues = {
@@ -86,6 +98,10 @@ const initialValues = {
   consentScopeDescription: "",
   consentDataScope: "",
   consentTTL: "",
+  locale: "pt-BR",
+  density: "cozy" as "cozy" | "compact",
+  reduceMotion: false,
+  highContrast: false,
 };
 
 // Fake persister — swap this file for a real persistence layer later.

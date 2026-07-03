@@ -1,5 +1,6 @@
 import { useValue, useSetValueCallback } from "@/store/hooks";
-import { Command, Moon, Sparkles, Sun } from "lucide-react";
+import { Command, Moon, Settings, Sparkles, Sun } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export function Header() {
   const theme = useValue("theme") as "light" | "dark";
@@ -79,6 +80,21 @@ export function Header() {
       >
         {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
       </button>
+
+      <Link
+        to="/configuracoes"
+        aria-label="Abrir configurações"
+        className="grid place-items-center transition-colors"
+        style={{
+          width: 36,
+          height: 36,
+          borderRadius: 9999,
+          background: "var(--ds-theme-surface-subdued)",
+          color: "var(--ds-theme-content-default)",
+        }}
+      >
+        <Settings size={16} />
+      </Link>
     </header>
   );
 }
