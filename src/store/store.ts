@@ -432,6 +432,28 @@ const initialTables = {
     cr4: { campaignId: "ca3", headline: "Print A3 — Aurora #012",       bodyText: "Edição numerada e assinada. Poucos exemplares.",     imageLabel: "PR3", ctr: 4.2, impressions:  4800, clicks:  201, suspiciousClicks:   0 },
     cr5: { campaignId: "ca4", headline: "Faça parte da comunidade",     bodyText: "Mentorias, replays e conteúdo exclusivo.",           imageLabel: "COM", ctr: 1.2, impressions: 25000, clicks:  300, suspiciousClicks: 142 },
   },
+  // ============ B10 — Email (T-EML) ============
+  // Invariantes:
+  // - `sendStatus`: "pendente" → "enviado" (saga simulada de ~1s no envio).
+  //   "eco-suprimido" = mensagem que voltou pelo próprio remetente (P2P) e a
+  //   cópia local foi silenciosamente descartada para não duplicar na caixa.
+  // - Reentrega do protocolo P2P é no-op idempotente: mesmo `id` = mesma msg.
+  // - `read:false` sinaliza não-lido; a lista destaca visualmente.
+  emailAccounts: {
+    ea1: { address: "israel@aurora.co",     provider: "IMAP/SMTP", displayName: "Aurora (trabalho)", syncStatus: "sincronizado" },
+    ea2: { address: "israel.pessoal@sa.io", provider: "IMAP/SMTP", displayName: "Pessoal",           syncStatus: "sincronizando" },
+  },
+  emails: {
+    em1: { accountId: "ea1", folder: "inbox",   fromName: "Ana Ribeiro",   fromAddress: "ana@aurora.co",       subject: "Briefing Aurora — revisão amanhã",   preview: "Oi Israel, terminei a revisão do briefing e…", body: "Oi Israel,\n\nTerminei a revisão do briefing do projeto Aurora. Podemos alinhar amanhã às 10h?\n\nAbraço,\nAna", read: false, sendStatus: null,          threadId: "t_aurora",   receivedAt: "2026-07-03T09:42:00Z" },
+    em2: { accountId: "ea1", folder: "inbox",   fromName: "Israel",        fromAddress: "israel@aurora.co",    subject: "Re: Briefing Aurora — revisão amanhã",preview: "Perfeito, 10h fechado. Envio o link do…",       body: "Perfeito, 10h fechado. Envio o link do call em seguida.\n\nIsrael",                                                                       read: true,  sendStatus: "enviado",     threadId: "t_aurora",   receivedAt: "2026-07-03T09:55:00Z" },
+    em3: { accountId: "ea1", folder: "inbox",   fromName: "Pedro L.",      fromAddress: "pedro@lopes.dev",     subject: "Contrato Q3 assinado",                preview: "Segue o PDF assinado em anexo. Qualquer…",       body: "Segue o PDF assinado em anexo. Qualquer coisa me avisa.\n\nPedro",                                                                        read: false, sendStatus: null,          threadId: "t_ctq3",     receivedAt: "2026-07-03T08:10:00Z" },
+    em4: { accountId: "ea1", folder: "inbox",   fromName: "Marketplace",   fromAddress: "no-reply@market.sa",  subject: "Pedido #4821 despachado",             preview: "Boas notícias — seu pedido saiu para…",           body: "Boas notícias — seu pedido saiu para entrega e chega em 2-3 dias úteis.",                                                                  read: true,  sendStatus: null,          threadId: "t_mkt4821",  receivedAt: "2026-07-02T18:00:00Z" },
+    em5: { accountId: "ea2", folder: "inbox",   fromName: "Marina",        fromAddress: "marina@marina.studio",subject: "Print A3 — pronto para envio",        preview: "Oi! Terminei a numeração e assinatura…",         body: "Oi! Terminei a numeração e assinatura do print. Posso despachar amanhã cedo?",                                                             read: false, sendStatus: null,          threadId: "t_print",    receivedAt: "2026-07-02T21:20:00Z" },
+    em6: { accountId: "ea1", folder: "sent",    fromName: "Israel",        fromAddress: "israel@aurora.co",    subject: "Convite: kickoff Aurora",             preview: "Olá pessoal, segue convite para o kickoff…",     body: "Olá pessoal,\n\nSegue convite para o kickoff do projeto Aurora na próxima terça, 10h.\n\nIsrael",                                          read: true,  sendStatus: "enviado",     threadId: "t_kick",     receivedAt: "2026-07-01T14:30:00Z" },
+    em7: { accountId: "ea1", folder: "sent",    fromName: "Israel",        fromAddress: "israel@aurora.co",    subject: "Envio de proposta — Studio",          preview: "Boa tarde, segue a proposta revisada…",           body: "Boa tarde, segue a proposta revisada com os ajustes conversados.",                                                                        read: true,  sendStatus: "pendente",    threadId: "t_prop",     receivedAt: "2026-07-03T10:15:00Z" },
+    em8: { accountId: "ea1", folder: "inbox",   fromName: "Israel",        fromAddress: "israel@aurora.co",    subject: "Lembrete pessoal (auto-enviado)",     preview: "Nota para mim mesmo — revisar tokens…",          body: "Nota para mim mesmo — revisar tokens semânticos antes do release.",                                                                       read: true,  sendStatus: "eco-suprimido", threadId: "t_self",   receivedAt: "2026-07-02T09:00:00Z" },
+    em9: { accountId: "ea1", folder: "archive", fromName: "Fintech Labs",  fromAddress: "hello@fintechlabs.io",subject: "Curso Sagas — confirmação",           preview: "Sua inscrição foi confirmada. Você recebe…",     body: "Sua inscrição foi confirmada. Você recebe o material em breve.",                                                                          read: true,  sendStatus: null,          threadId: "t_curso",    receivedAt: "2026-06-20T11:00:00Z" },
+  },
 };
 
 const initialValues = {
@@ -464,7 +486,7 @@ const initialValues = {
 
 // Fake persister — swap this file for a real persistence layer later.
 if (typeof window !== "undefined") {
-  const persister = createLocalPersister(store, "superapp-mockup-v11");
+  const persister = createLocalPersister(store, "superapp-mockup-v12");
   persister
     .startAutoLoad([initialTables, initialValues])
     .then(() => persister.startAutoSave());
