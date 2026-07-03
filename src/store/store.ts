@@ -26,6 +26,7 @@ const initialTables = {
     contabil: { label: "Contábil", icon: "calculator", order: 8 },
     mapa: { label: "Mapa", icon: "map-pin", order: 9 },
     logistica: { label: "Logística", icon: "truck", order: 10 },
+    streaming: { label: "Streaming", icon: "play-circle", order: 11 },
   },
   commsMenu: {
     email: { label: "Email", icon: "mail", order: 1 },
