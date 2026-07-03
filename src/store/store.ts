@@ -25,6 +25,7 @@ const initialTables = {
     erp: { label: "ERP", icon: "briefcase", order: 7 },
     contabil: { label: "Contábil", icon: "calculator", order: 8 },
     mapa: { label: "Mapa", icon: "map-pin", order: 9 },
+    logistica: { label: "Logística", icon: "truck", order: 10 },
   },
   commsMenu: {
     email: { label: "Email", icon: "mail", order: 1 },
@@ -348,6 +349,35 @@ const initialTables = {
     pl_map7: { name: "Parque Ibirapuera",   category: "parque",    lat: -23.587, lng: -46.657, distanceKm: 3.2, addressLabel: "Av. Pedro Álvares Cabral · Vila Mariana", savedByMe: false },
     pl_map8: { name: "Mercado Municipal",   category: "mercado",   lat: -23.542, lng: -46.629, distanceKm: 2.1, addressLabel: "R. da Cantareira, 306 · Centro",         savedByMe: false },
   },
+  // ============ B6 — Logística & Fulfillment ============
+  // Invariantes:
+  // - `deliveries.status` ∈ {aguardando, alocado, em rota, entregue, disputa}.
+  //   `disputa` é estado terminal alternativo que RETÉM escrow até resolução.
+  // - `couriers.currentDeliveryId` referencia `deliveries` (string vazia = livre).
+  //   TinyBase não aceita null em cells; usamos "" como ausência.
+  // - `warehouses` reusa nomes SP/RJ do B3 quando cabe, e adiciona BH.
+  //   Zonas são listadas como string simples ("Zona A · Zona B · Zona C") no
+  //   mockup — endereçamento real fica fora de escopo desta tela.
+  warehouses: {
+    "wh-sp": { name: "Depósito SP",  address: "R. Consolação, 3400 · São Paulo/SP",  zonesCount: 3, cycleCountDue: true  },
+    "wh-rj": { name: "Depósito RJ",  address: "Av. Brasil, 15000 · Rio de Janeiro/RJ", zonesCount: 4, cycleCountDue: false },
+    "wh-bh": { name: "Depósito BH",  address: "Av. Afonso Pena, 900 · Belo Horizonte/MG", zonesCount: 2, cycleCountDue: true  },
+  },
+  deliveries: {
+    dl1: { orderRef: "#4821", customerName: "Ana Ribeiro",  address: "R. Augusta, 900 · Consolação, SP",          status: "aguardando", courierName: "",             warehouseId: "",       createdAt: "2026-07-03T08:10:00Z" },
+    dl2: { orderRef: "#4822", customerName: "Pedro L.",     address: "Av. Paulista, 1000 · Bela Vista, SP",       status: "aguardando", courierName: "",             warehouseId: "",       createdAt: "2026-07-03T08:32:00Z" },
+    dl3: { orderRef: "#4820", customerName: "Marina Arte",  address: "R. Fradique Coutinho, 915 · Pinheiros, SP", status: "alocado",    courierName: "Maria Souza",  warehouseId: "wh-sp",  createdAt: "2026-07-03T07:45:00Z" },
+    dl4: { orderRef: "#4818", customerName: "Rafael Nunes", address: "R. da Bahia, 1200 · Centro, BH",            status: "em rota",    courierName: "João Silva",   warehouseId: "wh-bh",  createdAt: "2026-07-03T06:20:00Z" },
+    dl5: { orderRef: "#4815", customerName: "Julia Costa",  address: "R. Estados Unidos, 1500 · Jardins, SP",     status: "entregue",   courierName: "João Silva",   warehouseId: "wh-sp",  createdAt: "2026-07-02T15:00:00Z" },
+    dl6: { orderRef: "#4812", customerName: "Bruno Alves",  address: "R. Voluntários da Pátria, 220 · Botafogo, RJ", status: "disputa", courierName: "Carlos Lima",  warehouseId: "wh-rj",  createdAt: "2026-07-01T13:30:00Z" },
+  },
+  couriers: {
+    cr1: { name: "João Silva",    status: "em entrega", currentDeliveryId: "dl4" },
+    cr2: { name: "Maria Souza",   status: "em entrega", currentDeliveryId: "dl3" },
+    cr3: { name: "Carlos Lima",   status: "offline",    currentDeliveryId: ""    },
+    cr4: { name: "Fernanda Alves",status: "disponível", currentDeliveryId: ""    },
+    cr5: { name: "Pedro Nunes",   status: "disponível", currentDeliveryId: ""    },
+  },
 };
 
 const initialValues = {
@@ -380,7 +410,7 @@ const initialValues = {
 
 // Fake persister — swap this file for a real persistence layer later.
 if (typeof window !== "undefined") {
-  const persister = createLocalPersister(store, "superapp-mockup-v8");
+  const persister = createLocalPersister(store, "superapp-mockup-v9");
   persister
     .startAutoLoad([initialTables, initialValues])
     .then(() => persister.startAutoSave());

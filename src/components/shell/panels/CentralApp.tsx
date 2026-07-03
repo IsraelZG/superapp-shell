@@ -8,6 +8,7 @@ import { StudioModule } from "@/components/studio/StudioModule";
 import { ErpModule } from "@/components/erp/ErpModule";
 import { ContabilModule } from "@/components/contabil/ContabilModule";
 import { MapaModule } from "@/components/mapa/MapaModule";
+import { LogisticaModule } from "@/components/logistica/LogisticaModule";
 
 export function CentralApp({
   onSplit,
@@ -47,6 +48,10 @@ export function CentralApp({
 
   if (activeNav === "mapa") {
     return <MapaModule />;
+  }
+
+  if (activeNav === "logistica") {
+    return <LogisticaModule />;
   }
 
   return (
