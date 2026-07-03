@@ -379,6 +379,36 @@ const initialTables = {
     cr4: { name: "Fernanda Alves",status: "disponível", currentDeliveryId: ""    },
     cr5: { name: "Pedro Nunes",   status: "disponível", currentDeliveryId: ""    },
   },
+  // ============ B8 — Streaming (T-STR) ============
+  // Invariantes:
+  // - `videos.renditionStatus` ∈ {pronto, processando}. "processando" bloqueia play.
+  // - `videos.kind` ∈ {vod, live}. Encerrar live muda kind→vod (retenção como VOD).
+  // - `videos.hasSeeder=false` demonstra degradação P2P declarada (sem seeder).
+  channels: {
+    ch1: { name: "Aurora Studio",     avatarLabel: "AS", subscribers: 12840, description: "Design de sistemas, tokens semânticos e processos locais-first." },
+    ch2: { name: "Fintech Labs",      avatarLabel: "FL", subscribers:  4210, description: "Sagas, compensação e arquitetura de pagamentos." },
+    ch3: { name: "Marina Arte",       avatarLabel: "MA", subscribers:  8902, description: "Arte digital, séries limitadas e bastidores." },
+    ch4: { name: "Coletivo Aurora",   avatarLabel: "CA", subscribers:  2318, description: "Comunidade — lives, mentorias e replays." },
+  },
+  videos: {
+    v1: { channelId: "ch1", title: "Tokens semânticos na prática",     thumbnailLabel: "TSP", durationSec: 842,  views: 12480, publishedAt: "2026-06-28T14:00:00Z", kind: "vod",  renditionStatus: "pronto",       hasSeeder: true  },
+    v2: { channelId: "ch1", title: "Migrando de utility para tokens",  thumbnailLabel: "MUT", durationSec: 1204, views:  6210, publishedAt: "2026-06-30T10:00:00Z", kind: "vod",  renditionStatus: "processando", hasSeeder: true  },
+    v3: { channelId: "ch2", title: "Sagas em pagamentos — parte 1",    thumbnailLabel: "SP1", durationSec: 1830, views: 22100, publishedAt: "2026-06-20T18:00:00Z", kind: "vod",  renditionStatus: "pronto",       hasSeeder: false },
+    v4: { channelId: "ch3", title: "Bastidores série Aurora",           thumbnailLabel: "BSA", durationSec: 612,  views:  3450, publishedAt: "2026-07-01T09:00:00Z", kind: "vod",  renditionStatus: "pronto",       hasSeeder: true  },
+    v5: { channelId: "ch4", title: "Live — Q&A da comunidade (ao vivo)",thumbnailLabel: "LQA", durationSec: 0,    views:   184, publishedAt: "2026-07-03T09:00:00Z", kind: "live", renditionStatus: "pronto",       hasSeeder: true  },
+    v6: { channelId: "ch2", title: "Estudo de caso: estorno em cascata",thumbnailLabel: "ECE", durationSec: 954,  views:  1820, publishedAt: "2026-07-02T20:00:00Z", kind: "vod",  renditionStatus: "pronto",       hasSeeder: true  },
+  },
+  liveChat: {
+    lc1: { videoId: "v5", author: "Marina",     text: "boa noite pessoal 👋", time: "20:01" },
+    lc2: { videoId: "v5", author: "Rafael",     text: "chegou o áudio aí?",   time: "20:02" },
+    lc3: { videoId: "v5", author: "Ana",        text: "chegou sim, som ok",   time: "20:02" },
+    lc4: { videoId: "v5", author: "Pedro L.",   text: "vai ter replay?",      time: "20:03" },
+    lc5: { videoId: "v5", author: "Sistema",    text: "Julia entrou na live", time: "20:03" },
+    lc6: { videoId: "v5", author: "Julia",      text: "oiiê 🙌",              time: "20:04" },
+  },
+  subscriptions: {
+    sub1: { channelId: "ch1", subscribedAt: "2026-05-10T00:00:00Z" },
+  },
 };
 
 const initialValues = {
@@ -411,7 +441,7 @@ const initialValues = {
 
 // Fake persister — swap this file for a real persistence layer later.
 if (typeof window !== "undefined") {
-  const persister = createLocalPersister(store, "superapp-mockup-v9");
+  const persister = createLocalPersister(store, "superapp-mockup-v10");
   persister
     .startAutoLoad([initialTables, initialValues])
     .then(() => persister.startAutoSave());
