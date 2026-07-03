@@ -505,7 +505,7 @@ const initialValues = {
 
 // Fake persister — swap this file for a real persistence layer later.
 if (typeof window !== "undefined") {
-  const persister = createLocalPersister(store, "superapp-mockup-v12");
+  const persister = createLocalPersister(store, "superapp-mockup-v13");
   persister
     .startAutoLoad([initialTables, initialValues])
     .then(() => persister.startAutoSave());
