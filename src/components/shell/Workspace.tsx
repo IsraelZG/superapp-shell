@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback } from "react";
 import {
   Layout,
   Model,
@@ -6,7 +6,6 @@ import {
   DockLocation,
   type TabNode,
   type IJsonModel,
-  type ITabSetRenderValues,
 } from "flexlayout-react";
 import { store, useValue } from "@/store/hooks";
 import { CommsRail, ModulesRail } from "./panels/CommsRail";
@@ -22,8 +21,6 @@ const initialJson: IJsonModel = {
     tabEnableClose: true,
     tabEnableRename: false,
     tabSetEnableMaximize: false,
-    splitterSize: 6,
-    splitterExtra: 4,
   },
   borders: [],
   layout: {
@@ -33,12 +30,13 @@ const initialJson: IJsonModel = {
       {
         type: "tabset",
         id: "ts-comms",
-        width: RAIL_WIDTH,
+        weight: 0,
+        minWidth: RAIL_WIDTH,
+        maxWidth: RAIL_WIDTH,
         enableDrop: false,
         enableDrag: false,
         enableTabStrip: false,
         classNameTabStrip: "rail-tabset",
-        classNameHeader: "rail-tabset",
         children: [
           {
             type: "tab",
@@ -81,7 +79,9 @@ const initialJson: IJsonModel = {
       {
         type: "tabset",
         id: "ts-modules",
-        width: RAIL_WIDTH,
+        weight: 0,
+        minWidth: RAIL_WIDTH,
+        maxWidth: RAIL_WIDTH,
         enableDrop: false,
         enableDrag: false,
         enableTabStrip: false,
@@ -131,12 +131,7 @@ function loadModel(): Model {
 
 export function Workspace() {
   const [model] = useState<Model>(() => loadModel());
-  const layoutRef = useRef<Layout>(null);
   const openedCounter = useRef(0);
-
-  useEffect(() => {
-    // no-op: persistence handled in onModelChange
-  }, []);
 
   const persist = useCallback((m: Model) => {
     store.setValue("layoutJson", JSON.stringify(m.toJson()));
@@ -245,17 +240,6 @@ export function Workspace() {
     [composeEmail, openColumn, splitCentral],
   );
 
-  // Style each rail tabset with rounded chrome-less look via className
-  const onRenderTabSet = useCallback(
-    (node: unknown, values: ITabSetRenderValues) => {
-      const n = node as { getId: () => string };
-      if (n.getId() === "ts-comms" || n.getId() === "ts-modules") {
-        values.headerContent = null;
-      }
-    },
-    [],
-  );
-
   const restoreCollapsed = useCallback(
     (id: string, name: string, component: string) => {
       const newId = `tab-restore-${Date.now()}`;
@@ -277,11 +261,9 @@ export function Workspace() {
     <div className="relative flex min-h-0 flex-1 flex-col">
       <div className="relative min-h-0 flex-1">
         <Layout
-          ref={layoutRef}
           model={model}
           factory={factory}
           onModelChange={persist}
-          onRenderTabSet={onRenderTabSet}
         />
       </div>
       <CollapsedStack onRestore={restoreCollapsed} />
@@ -351,5 +333,3 @@ function MobileOverlay({
   );
 }
 
-// Suppress unused warning
-useMemo;
