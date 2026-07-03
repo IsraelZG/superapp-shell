@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConfiguracoesIndexRouteImport } from './routes/configuracoes.index'
 import { Route as ConfiguracoesPermissoesRouteImport } from './routes/configuracoes.permissoes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesIndexRoute = ConfiguracoesIndexRouteImport.update({
+  id: '/configuracoes/',
+  path: '/configuracoes/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfiguracoesPermissoesRoute = ConfiguracoesPermissoesRouteImport.update({
@@ -26,27 +32,31 @@ const ConfiguracoesPermissoesRoute = ConfiguracoesPermissoesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
+  '/configuracoes/': typeof ConfiguracoesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
+  '/configuracoes': typeof ConfiguracoesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
+  '/configuracoes/': typeof ConfiguracoesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/configuracoes/permissoes'
+  fullPaths: '/' | '/configuracoes/permissoes' | '/configuracoes/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/configuracoes/permissoes'
-  id: '__root__' | '/' | '/configuracoes/permissoes'
+  to: '/' | '/configuracoes/permissoes' | '/configuracoes'
+  id: '__root__' | '/' | '/configuracoes/permissoes' | '/configuracoes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConfiguracoesPermissoesRoute: typeof ConfiguracoesPermissoesRoute
+  ConfiguracoesIndexRoute: typeof ConfiguracoesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes/': {
+      id: '/configuracoes/'
+      path: '/configuracoes'
+      fullPath: '/configuracoes/'
+      preLoaderRoute: typeof ConfiguracoesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/configuracoes/permissoes': {
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConfiguracoesPermissoesRoute: ConfiguracoesPermissoesRoute,
+  ConfiguracoesIndexRoute: ConfiguracoesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
