@@ -1,6 +1,8 @@
 import { useCell, useValue, useSetValueCallback } from "@/store/hooks";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Circle, Cloud, CloudOff, Mail, Grid3x3 } from "lucide-react";
+import { Circle, Cloud, CloudOff, Mail, Grid3x3, Shield, KeyRound } from "lucide-react";
+import { useSimulateConsentRequest } from "@/components/security/ConsentPrompt";
+import { Link } from "@tanstack/react-router";
 
 export function Footer() {
   const status = (useValue("syncStatus") as string) ?? "synced";
@@ -27,6 +29,9 @@ export function Footer() {
       : status === "offline"
         ? "var(--ds-theme-intent-danger-fill)"
         : "var(--ds-theme-intent-success-fill)";
+
+  // DEV/mock trigger — remove when real capability requests are wired.
+  const simulateConsent = useSimulateConsentRequest();
 
   return (
     <footer
@@ -97,6 +102,35 @@ export function Footer() {
       >
         {appLabel} · pronto
       </span>
+      <button
+        type="button"
+        onClick={simulateConsent}
+        title="Demo: simular pedido de consentimento"
+        aria-label="Simular pedido de consentimento"
+        className="inline-flex items-center gap-1.5"
+        style={{
+          padding: "4px 10px",
+          borderRadius: 9999,
+          background: "var(--ds-theme-surface-subdued)",
+          color: "var(--ds-theme-content-default)",
+        }}
+      >
+        <Shield size={12} aria-hidden="true" /> Consent demo
+      </button>
+      <Link
+        to="/configuracoes/permissoes"
+        className="inline-flex items-center gap-1.5"
+        style={{
+          padding: "4px 10px",
+          borderRadius: 9999,
+          background: "var(--ds-theme-surface-subdued)",
+          color: "var(--ds-theme-content-default)",
+          textDecoration: "none",
+        }}
+        aria-label="Abrir permissões"
+      >
+        <KeyRound size={12} aria-hidden="true" /> Permissões
+      </Link>
     </footer>
   );
 }
