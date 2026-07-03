@@ -31,7 +31,7 @@ export function ChannelPage({
   const subscribe = useSetRowCallback(
     "subscriptions",
     (id: string) => id,
-    () => ({ channelId, subscribedAt: new Date().toISOString() }),
+    (_id: string) => ({ channelId, subscribedAt: new Date().toISOString() }),
     [channelId],
   );
   const unsubscribe = useDelRowCallback("subscriptions", (id: string) => id);
