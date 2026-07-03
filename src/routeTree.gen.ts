@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AgenteRouteImport } from './routes/agente'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConfiguracoesIndexRouteImport } from './routes/configuracoes.index'
 import { Route as ConfiguracoesPermissoesRouteImport } from './routes/configuracoes.permissoes'
 
+const AgenteRoute = AgenteRouteImport.update({
+  id: '/agente',
+  path: '/agente',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,36 +37,52 @@ const ConfiguracoesPermissoesRoute = ConfiguracoesPermissoesRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agente': typeof AgenteRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agente': typeof AgenteRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
   '/configuracoes': typeof ConfiguracoesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agente': typeof AgenteRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/configuracoes/permissoes' | '/configuracoes/'
+  fullPaths: '/' | '/agente' | '/configuracoes/permissoes' | '/configuracoes/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/configuracoes/permissoes' | '/configuracoes'
-  id: '__root__' | '/' | '/configuracoes/permissoes' | '/configuracoes/'
+  to: '/' | '/agente' | '/configuracoes/permissoes' | '/configuracoes'
+  id:
+    | '__root__'
+    | '/'
+    | '/agente'
+    | '/configuracoes/permissoes'
+    | '/configuracoes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgenteRoute: typeof AgenteRoute
   ConfiguracoesPermissoesRoute: typeof ConfiguracoesPermissoesRoute
   ConfiguracoesIndexRoute: typeof ConfiguracoesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/agente': {
+      id: '/agente'
+      path: '/agente'
+      fullPath: '/agente'
+      preLoaderRoute: typeof AgenteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +109,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgenteRoute: AgenteRoute,
   ConfiguracoesPermissoesRoute: ConfiguracoesPermissoesRoute,
   ConfiguracoesIndexRoute: ConfiguracoesIndexRoute,
 }

@@ -9,6 +9,7 @@ export function Header() {
     () => (theme === "dark" ? "light" : "dark"),
     [theme],
   );
+  const openPalette = useSetValueCallback("commandPaletteOpen", () => true, []);
 
   return (
     <header
@@ -41,6 +42,8 @@ export function Header() {
 
       <button
         type="button"
+        onClick={openPalette}
+        aria-label="Abrir paleta de comandos"
         className="hidden items-center gap-2 md:inline-flex"
         style={{
           height: 34,
