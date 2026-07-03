@@ -10,12 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  useValue,
-  useSetValueCallback,
-  useSetRowCallback,
-  store,
-} from "@/store/hooks";
+import { useValue, useSetValueCallback, store } from "@/store/hooks";
 
 export function ConsentPrompt() {
   const open = (useValue("consentPromptOpen") as boolean) ?? false;
@@ -31,10 +26,8 @@ export function ConsentPrompt() {
     [],
   );
 
-  const grant = useSetRowCallback(
-    "consents",
-    () => `c_${Date.now()}`,
-    () => ({
+  const record = (status: "granted" | "denied") => {
+    store.setRow("consents", `c_${Date.now()}`, {
       requesterName,
       requesterIcon: "shield",
       capability,
@@ -42,26 +35,9 @@ export function ConsentPrompt() {
       dataScope,
       ttl,
       grantedAt: new Date().toISOString(),
-      status: "granted",
-    }),
-    [requesterName, capability, scopeDescription, dataScope, ttl],
-  );
-
-  const deny = useSetRowCallback(
-    "consents",
-    () => `c_${Date.now()}`,
-    () => ({
-      requesterName,
-      requesterIcon: "shield",
-      capability,
-      scopeDescription,
-      dataScope,
-      ttl,
-      grantedAt: new Date().toISOString(),
-      status: "denied",
-    }),
-    [requesterName, capability, scopeDescription, dataScope, ttl],
-  );
+      status,
+    });
+  };
 
   const onOpenChange = (v: boolean) => {
     if (!v) close();
@@ -166,7 +142,7 @@ export function ConsentPrompt() {
             type="button"
             variant="outline"
             onClick={() => {
-              deny();
+              record("denied");
               close();
             }}
             style={{
@@ -183,7 +159,7 @@ export function ConsentPrompt() {
             type="button"
             variant="outline"
             onClick={() => {
-              grant();
+              record("granted");
               close();
             }}
             style={{
