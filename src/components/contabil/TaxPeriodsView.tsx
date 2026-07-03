@@ -233,6 +233,7 @@ export function TaxPeriodsView() {
         onOpenChange={(v) => !v && setCloseTarget(null)}
         title={`Fechar competência ${closeTarget ? periods[closeTarget]?.label ?? "" : ""}`}
         description="Após fechado, os lançamentos deste período tornam-se somente leitura. Esta ação pode ser revertida apenas por um administrador."
+        confirmLabel="Fechar competência"
         onConfirm={runClose}
       />
 
