@@ -36,6 +36,7 @@ const initialTables = {
     c5: { name: "Marketplace", preview: "Pedido #4821 despachado", time: "seg", unread: 0, order: 5 },
   },
   collapsed: {},
+  identity: {},
 };
 
 const initialValues = {
@@ -50,6 +51,7 @@ const initialValues = {
   syncStatus: "synced" as "synced" | "syncing" | "offline",
   online: true,
   mobileOverlay: "" as "" | "comms" | "modules",
+  onboardingStep: "welcome" as "welcome" | "create" | "confirm" | "unlock" | "done",
 };
 
 // Fake persister — swap this file for a real persistence layer later.
