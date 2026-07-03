@@ -1,18 +1,31 @@
-import { useSortedRowIds, useCell } from "@/store/hooks";
+import { useSortedRowIds, useCell, useValue, store } from "@/store/hooks";
 
 function ConversationRow({ id }: { id: string }) {
   const name = useCell("conversations", id, "name") as string;
   const preview = useCell("conversations", id, "preview") as string;
   const time = useCell("conversations", id, "time") as string;
   const unread = (useCell("conversations", id, "unread") as number) ?? 0;
+  const active = (useValue("activeConversationId") as string) === id;
   const initials = name.split(" ").map((s) => s[0]).slice(0, 2).join("").toUpperCase();
   return (
     <button
       type="button"
+      onClick={() => {
+        store.setValue("activeConversationId", id);
+        store.setValue("activeNav", "mensagens");
+      }}
+      aria-current={active ? "true" : undefined}
       className="flex w-full items-center gap-3 rounded-2xl px-3 py-2 text-left transition-colors"
-      style={{ color: "var(--ds-theme-content-default)" }}
-      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--ds-theme-surface-subdued)")}
-      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+      style={{
+        color: "var(--ds-theme-content-default)",
+        background: active ? "var(--ds-theme-intent-accent-subtle)" : "transparent",
+      }}
+      onMouseEnter={(e) => {
+        if (!active) e.currentTarget.style.background = "var(--ds-theme-surface-subdued)";
+      }}
+      onMouseLeave={(e) => {
+        if (!active) e.currentTarget.style.background = "transparent";
+      }}
     >
       <div
         className="grid shrink-0 place-items-center text-xs font-semibold"
