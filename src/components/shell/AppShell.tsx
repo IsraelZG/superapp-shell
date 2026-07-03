@@ -6,6 +6,7 @@ import { Workspace, MobileWorkspace } from "./Workspace";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useSetValueCallback } from "@/store/hooks";
 import { ConsentPrompt } from "@/components/security/ConsentPrompt";
+import { CommandPalette } from "@/components/ai/CommandPalette";
 
 export function AppShell() {
   const isMobile = useIsMobile();
@@ -32,6 +33,7 @@ export function AppShell() {
         <Footer />
       </div>
       <ConsentPrompt />
+      <CommandPalette />
     </>
   );
 }
