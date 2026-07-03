@@ -153,6 +153,33 @@ const initialTables = {
     u2: { name: "Pedro L.", avatar: "", bio: "Jurídico e contratos.", followers: 92, following: 55, visibility: "private", isFollowing: false },
     u3: { name: "Marina", avatar: "", bio: "Arte digital · perfil privado.", followers: 1204, following: 88, visibility: "private", isFollowing: true },
   },
+  // ============ B2 — Marketplace + Fintech ============
+  // Invariantes:
+  // - `stock` é a fonte da verdade; comprar decrementa e nunca deve permitir
+  //   `stock < 0` (oversell). O botão "Simular concorrência" no detalhe zera
+  //   o estoque antes do submit para forçar o erro amigável no fluxo.
+  // - Saga: pendente → pago → enviado → compensado (estado terminal alternativo).
+  //   `compensado` sinaliza estorno + reposição de estoque.
+  products: {
+    pr1: { sellerName: "Aurora Studio", title: "Kit de ícones semânticos", description: "Coleção com 240 ícones alinhados a tokens de design.", price: 89.9, currency: "BRL", imageUrl: "", stock: 42, category: "design", rating: 4.8, acceptsOffers: false },
+    pr2: { sellerName: "Pedro L.", title: "Template de contrato B2B", description: "Modelo revisado por advogado, com cláusulas de SLA e LGPD.", price: 149, currency: "BRL", imageUrl: "", stock: 1, category: "juridico", rating: 4.6, acceptsOffers: true },
+    pr3: { sellerName: "Marina Arte", title: "Print A3 — série Aurora", description: "Impressão numerada e assinada. Edição limitada.", price: 220, currency: "BRL", imageUrl: "", stock: 0, category: "arte", rating: 5.0, acceptsOffers: true },
+    pr4: { sellerName: "Fintech Labs", title: "Curso: Sagas em pagamentos", description: "12h de aulas + estudos de caso reais de compensação.", price: 59, currency: "BRL", imageUrl: "", stock: 200, category: "cursos", rating: 4.4, acceptsOffers: false },
+    pr5: { sellerName: "Aurora Studio", title: "Componente de tema (Figma)", description: "Biblioteca com tokens light/dark prontos para o SuperApp.", price: 39, currency: "BRL", imageUrl: "", stock: 15, category: "design", rating: 4.9, acceptsOffers: false },
+    pr6: { sellerName: "Coletivo Aurora", title: "Assinatura mensal — comunidade", description: "Acesso ao grupo, mentorias e replay das lives.", price: 29, currency: "BRL", imageUrl: "", stock: 999, category: "assinatura", rating: 4.7, acceptsOffers: false },
+  },
+  cart: {},
+  orders: {
+    o1: { productId: "pr4", productTitle: "Curso: Sagas em pagamentos", buyerNote: "Enviar nota fiscal por email.", totalPrice: 59, sagaStep: "enviado", createdAt: "2026-07-02T14:00:00Z", disputeOpen: false },
+    o2: { productId: "pr1", productTitle: "Kit de ícones semânticos", buyerNote: "", totalPrice: 89.9, sagaStep: "pago", createdAt: "2026-07-03T08:20:00Z", disputeOpen: false },
+    o3: { productId: "pr5", productTitle: "Componente de tema (Figma)", buyerNote: "Duplicado por engano — solicitei estorno.", totalPrice: 39, sagaStep: "compensado", createdAt: "2026-07-01T19:10:00Z", disputeOpen: true },
+  },
+  sellerListings: {
+    sl1: { productId: "pr1", title: "Kit de ícones semânticos", status: "ativo", views: 1284, sales: 46, revenue: 4135.4 },
+    sl2: { productId: "pr5", title: "Componente de tema (Figma)", status: "ativo", views: 902, sales: 21, revenue: 819 },
+    sl3: { productId: "pr3", title: "Print A3 — série Aurora", status: "vendido", views: 640, sales: 12, revenue: 2640 },
+    sl4: { productId: "pr6", title: "Assinatura mensal — comunidade", status: "pausado", views: 210, sales: 4, revenue: 116 },
+  },
 };
 
 const initialValues = {
@@ -185,7 +212,7 @@ const initialValues = {
 
 // Fake persister — swap this file for a real persistence layer later.
 if (typeof window !== "undefined") {
-  const persister = createLocalPersister(store, "superapp-mockup-v3");
+  const persister = createLocalPersister(store, "superapp-mockup-v4");
   persister
     .startAutoLoad([initialTables, initialValues])
     .then(() => persister.startAutoSave());
