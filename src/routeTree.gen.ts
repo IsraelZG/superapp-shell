@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConfiguracoesIndexRouteImport } from './routes/configuracoes.index'
 import { Route as MensagensChamadaRouteImport } from './routes/mensagens.chamada'
 import { Route as ConfiguracoesPermissoesRouteImport } from './routes/configuracoes.permissoes'
+import { Route as SocialPerfilIdRouteImport } from './routes/social.perfil.$id'
 
 const CatalogoRoute = CatalogoRouteImport.update({
   id: '/catalogo',
@@ -46,6 +47,11 @@ const ConfiguracoesPermissoesRoute = ConfiguracoesPermissoesRouteImport.update({
   path: '/configuracoes/permissoes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SocialPerfilIdRoute = SocialPerfilIdRouteImport.update({
+  id: '/social/perfil/$id',
+  path: '/social/perfil/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
   '/mensagens/chamada': typeof MensagensChamadaRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
+  '/social/perfil/$id': typeof SocialPerfilIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
   '/mensagens/chamada': typeof MensagensChamadaRoute
   '/configuracoes': typeof ConfiguracoesIndexRoute
+  '/social/perfil/$id': typeof SocialPerfilIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
   '/mensagens/chamada': typeof MensagensChamadaRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
+  '/social/perfil/$id': typeof SocialPerfilIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/configuracoes/permissoes'
     | '/mensagens/chamada'
     | '/configuracoes/'
+    | '/social/perfil/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/configuracoes/permissoes'
     | '/mensagens/chamada'
     | '/configuracoes'
+    | '/social/perfil/$id'
   id:
     | '__root__'
     | '/'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/configuracoes/permissoes'
     | '/mensagens/chamada'
     | '/configuracoes/'
+    | '/social/perfil/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,6 +118,7 @@ export interface RootRouteChildren {
   ConfiguracoesPermissoesRoute: typeof ConfiguracoesPermissoesRoute
   MensagensChamadaRoute: typeof MensagensChamadaRoute
   ConfiguracoesIndexRoute: typeof ConfiguracoesIndexRoute
+  SocialPerfilIdRoute: typeof SocialPerfilIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -152,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfiguracoesPermissoesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/social/perfil/$id': {
+      id: '/social/perfil/$id'
+      path: '/social/perfil/$id'
+      fullPath: '/social/perfil/$id'
+      preLoaderRoute: typeof SocialPerfilIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -162,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConfiguracoesPermissoesRoute: ConfiguracoesPermissoesRoute,
   MensagensChamadaRoute: MensagensChamadaRoute,
   ConfiguracoesIndexRoute: ConfiguracoesIndexRoute,
+  SocialPerfilIdRoute: SocialPerfilIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

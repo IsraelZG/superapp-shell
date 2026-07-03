@@ -2,6 +2,7 @@ import { useCell, useValue } from "@/store/hooks";
 import { navIconMap } from "../icons";
 import { Columns2, PanelRightOpen, Plus } from "lucide-react";
 import { ConversationView } from "@/components/messaging/ConversationView";
+import { SocialModule } from "@/components/social/SocialModule";
 
 export function CentralApp({
   onSplit,
@@ -17,6 +18,10 @@ export function CentralApp({
 
   if (activeNav === "mensagens") {
     return <ConversationView />;
+  }
+
+  if (activeNav === "social") {
+    return <SocialModule />;
   }
 
   return (
