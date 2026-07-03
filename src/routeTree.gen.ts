@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as CatalogoRouteImport } from './routes/catalogo'
 import { Route as AgenteRouteImport } from './routes/agente'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConfiguracoesIndexRouteImport } from './routes/configuracoes.index'
 import { Route as MensagensChamadaRouteImport } from './routes/mensagens.chamada'
 import { Route as ConfiguracoesPermissoesRouteImport } from './routes/configuracoes.permissoes'
 
+const CatalogoRoute = CatalogoRouteImport.update({
+  id: '/catalogo',
+  path: '/catalogo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AgenteRoute = AgenteRouteImport.update({
   id: '/agente',
   path: '/agente',
@@ -44,6 +50,7 @@ const ConfiguracoesPermissoesRoute = ConfiguracoesPermissoesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agente': typeof AgenteRoute
+  '/catalogo': typeof CatalogoRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
   '/mensagens/chamada': typeof MensagensChamadaRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agente': typeof AgenteRoute
+  '/catalogo': typeof CatalogoRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
   '/mensagens/chamada': typeof MensagensChamadaRoute
   '/configuracoes': typeof ConfiguracoesIndexRoute
@@ -59,6 +67,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agente': typeof AgenteRoute
+  '/catalogo': typeof CatalogoRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
   '/mensagens/chamada': typeof MensagensChamadaRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
@@ -68,6 +77,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/agente'
+    | '/catalogo'
     | '/configuracoes/permissoes'
     | '/mensagens/chamada'
     | '/configuracoes/'
@@ -75,6 +85,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/agente'
+    | '/catalogo'
     | '/configuracoes/permissoes'
     | '/mensagens/chamada'
     | '/configuracoes'
@@ -82,6 +93,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/agente'
+    | '/catalogo'
     | '/configuracoes/permissoes'
     | '/mensagens/chamada'
     | '/configuracoes/'
@@ -90,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgenteRoute: typeof AgenteRoute
+  CatalogoRoute: typeof CatalogoRoute
   ConfiguracoesPermissoesRoute: typeof ConfiguracoesPermissoesRoute
   MensagensChamadaRoute: typeof MensagensChamadaRoute
   ConfiguracoesIndexRoute: typeof ConfiguracoesIndexRoute
@@ -97,6 +110,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/catalogo': {
+      id: '/catalogo'
+      path: '/catalogo'
+      fullPath: '/catalogo'
+      preLoaderRoute: typeof CatalogoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/agente': {
       id: '/agente'
       path: '/agente'
@@ -138,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgenteRoute: AgenteRoute,
+  CatalogoRoute: CatalogoRoute,
   ConfiguracoesPermissoesRoute: ConfiguracoesPermissoesRoute,
   MensagensChamadaRoute: MensagensChamadaRoute,
   ConfiguracoesIndexRoute: ConfiguracoesIndexRoute,
