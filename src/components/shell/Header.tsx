@@ -1,87 +1,84 @@
-import { useCell, useValue, useSetValueCallback } from "@/store/hooks";
-import { Moon, Sun } from "lucide-react";
+import { useValue, useSetValueCallback } from "@/store/hooks";
+import { Command, Moon, Sparkles, Sun } from "lucide-react";
 
 export function Header() {
   const theme = useValue("theme") as "light" | "dark";
-  const userName = useCell("currentUser", "me", "name") as string;
-  const activeNav = useValue("activeNav") as string;
-  const activeLabel = useCell("nav", activeNav, "label") as string;
-
   const toggleTheme = useSetValueCallback(
     "theme",
     () => (theme === "dark" ? "light" : "dark"),
     [theme],
   );
 
-  const initials = (userName ?? "?")
-    .split(" ")
-    .map((p) => p[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-
   return (
     <header
-      className="flex h-16 shrink-0 items-center gap-4 border-b px-4 md:px-6"
+      className="flex h-14 shrink-0 items-center gap-3 border-b px-4"
       style={{
         background: "var(--ds-theme-surface-default)",
         borderColor: "var(--ds-theme-border-subtle)",
       }}
     >
-      <div className="min-w-0 flex-1">
-        <p
-          className="text-xs font-medium uppercase tracking-wide"
-          style={{ color: "var(--ds-theme-content-subtle)" }}
+      <div className="flex min-w-0 flex-1 items-center gap-2">
+        <div
+          className="grid place-items-center"
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: 10,
+            background: "var(--ds-theme-intent-accent-fill)",
+            color: "var(--ds-theme-intent-accent-on-fill)",
+          }}
         >
-          SuperApp
-        </p>
-        <h1
-          className="truncate text-lg font-semibold"
+          <Sparkles size={16} />
+        </div>
+        <span
+          className="truncate text-sm font-semibold tracking-tight"
           style={{ color: "var(--ds-theme-content-strong)" }}
         >
-          {activeLabel ?? "Início"}
-        </h1>
+          SuperApp
+        </span>
       </div>
 
       <button
         type="button"
-        onClick={toggleTheme}
-        aria-label={
-          theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"
-        }
-        className="flex items-center justify-center transition-colors"
+        className="hidden items-center gap-2 md:inline-flex"
         style={{
-          width: 40,
-          height: 40,
+          height: 34,
+          padding: "0 12px",
+          borderRadius: 9999,
+          background: "var(--ds-theme-surface-subdued)",
+          color: "var(--ds-theme-content-muted)",
+          fontSize: 12,
+        }}
+      >
+        <Command size={14} />
+        <span>Buscar…</span>
+        <span
+          className="ml-2 rounded px-1.5 py-0.5 text-[10px] font-semibold"
+          style={{
+            background: "var(--ds-theme-surface-default)",
+            color: "var(--ds-theme-content-default)",
+            border: "1px solid var(--ds-theme-border-subtle)",
+          }}
+        >
+          ⌘K
+        </span>
+      </button>
+
+      <button
+        type="button"
+        onClick={toggleTheme}
+        aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
+        className="grid place-items-center transition-colors"
+        style={{
+          width: 36,
+          height: 36,
           borderRadius: 9999,
           background: "var(--ds-theme-surface-subdued)",
           color: "var(--ds-theme-content-default)",
         }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.background =
-            "var(--ds-component-button-ghost-bg-hover)")
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.background =
-            "var(--ds-theme-surface-subdued)")
-        }
       >
-        {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+        {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
       </button>
-
-      <div
-        className="grid shrink-0 place-items-center text-sm font-semibold"
-        style={{
-          width: "var(--ds-component-avatar-size-md)",
-          height: "var(--ds-component-avatar-size-md)",
-          borderRadius: "var(--ds-component-avatar-radius)",
-          background: "var(--ds-component-avatar-fallback-bg)",
-          color: "var(--ds-component-avatar-fallback-text)",
-        }}
-        title={userName}
-      >
-        {initials}
-      </div>
     </header>
   );
 }

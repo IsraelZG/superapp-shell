@@ -5,6 +5,13 @@ import {
   RefreshCw,
   User,
   Image as ImageIcon,
+  Users,
+  Wallet,
+  Palette,
+  ShoppingBag,
+  Mail,
+  Bell,
+  MessageSquare,
   type LucideIcon,
 } from "lucide-react";
 
@@ -15,4 +22,11 @@ export const navIconMap: Record<string, LucideIcon> = {
   "refresh-cw": RefreshCw,
   user: User,
   image: ImageIcon,
+  users: Users,
+  wallet: Wallet,
+  palette: Palette,
+  "shopping-bag": ShoppingBag,
+  mail: Mail,
+  bell: Bell,
+  "message-square": MessageSquare,
 };
