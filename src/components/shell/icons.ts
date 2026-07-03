@@ -14,6 +14,7 @@ import {
   MessageSquare,
   Briefcase,
   Calculator,
+  MapPin,
   type LucideIcon,
 } from "lucide-react";
 
@@ -33,4 +34,5 @@ export const navIconMap: Record<string, LucideIcon> = {
   "message-square": MessageSquare,
   briefcase: Briefcase,
   calculator: Calculator,
+  "map-pin": MapPin,
 };
