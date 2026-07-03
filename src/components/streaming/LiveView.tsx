@@ -37,8 +37,8 @@ export function LiveView({
   const setKind = useSetCellCallback(
     "videos",
     () => videoId ?? "",
-    "kind",
-    () => "vod" as const,
+    () => "kind",
+    () => "vod",
     [videoId],
   );
 
