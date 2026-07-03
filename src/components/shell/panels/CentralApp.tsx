@@ -3,6 +3,7 @@ import { navIconMap } from "../icons";
 import { Columns2, PanelRightOpen, Plus } from "lucide-react";
 import { ConversationView } from "@/components/messaging/ConversationView";
 import { SocialModule } from "@/components/social/SocialModule";
+import { MarketplaceModule } from "@/components/marketplace/MarketplaceModule";
 
 export function CentralApp({
   onSplit,
@@ -22,6 +23,10 @@ export function CentralApp({
 
   if (activeNav === "social") {
     return <SocialModule />;
+  }
+
+  if (activeNav === "marketplace") {
+    return <MarketplaceModule />;
   }
 
   return (
