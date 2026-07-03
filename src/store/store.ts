@@ -128,6 +128,31 @@ const initialTables = {
     a5: { actor: "user", action: "Abriu painel de permissões", timestamp: "2026-07-03T09:20:00Z", status: "done" },
     a6: { actor: "agent", action: "Sugeriu revogar acesso expirado de Backup Local", timestamp: "2026-07-03T09:21:00Z", status: "done" },
   },
+  // ============ B7 — Social & Feed ============
+  // Invariante de privacidade retroativa: quando `visibility` de um post é
+  // reduzida (ex.: "public" → "private"), a UI de quem não tem mais acesso
+  // simplesmente não lista o post. Neste mockup single-user, apenas garantimos
+  // que o autor SEMPRE vê o badge de visibilidade atual do próprio post.
+  posts: {
+    p1: { authorId: "u1", authorName: "Ana Ribeiro", authorAvatar: "", text: "Fechei o briefing do projeto Aurora — quem topa revisar amanhã 10h?", imageUrl: "", createdAt: "2026-07-03T09:42:00Z", likes: 12, comments: 4, visibility: "public", isAd: false, rank: 1 },
+    p2: { authorId: "u_me", authorName: "Israel", authorAvatar: "", text: "Testando o novo editor de tema do SuperApp. Curti bastante os tokens semânticos.", imageUrl: "", createdAt: "2026-07-03T08:15:00Z", likes: 5, comments: 1, visibility: "connections", isAd: false, rank: 2 },
+    p3: { authorId: "ad_studio", authorName: "Studio Aurora", authorAvatar: "", text: "Novos templates de design local-first — sem lock-in de nuvem. Baixe grátis.", imageUrl: "", createdAt: "2026-07-03T07:00:00Z", likes: 88, comments: 12, visibility: "public", isAd: true, rank: 3 },
+    p4: { authorId: "u2", authorName: "Pedro L.", authorAvatar: "", text: "Contrato Q3 assinado ✍️ próxima etapa: reunião de kickoff.", imageUrl: "", createdAt: "2026-07-02T21:03:00Z", likes: 3, comments: 0, visibility: "public", isAd: false, rank: 4 },
+    p5: { authorId: "u_me", authorName: "Israel", authorAvatar: "", text: "Rascunho privado — anotações para mim mesmo sobre a arquitetura de sync.", imageUrl: "", createdAt: "2026-07-02T18:20:00Z", likes: 0, comments: 0, visibility: "private", isAd: false, rank: 5 },
+  },
+  stories: {
+    // expiresAt no futuro = válido; no passado = expirado (teste explícito)
+    st1: { authorId: "u1", authorName: "Ana Ribeiro", authorAvatar: "", createdAt: "2026-07-03T08:00:00Z", expiresAt: "2026-07-04T08:00:00Z", viewed: false, mediaUrl: "" },
+    st2: { authorId: "u_me", authorName: "Israel", authorAvatar: "", createdAt: "2026-07-03T09:00:00Z", expiresAt: "2026-07-04T09:00:00Z", viewed: false, mediaUrl: "" },
+    st3: { authorId: "u2", authorName: "Pedro L.", authorAvatar: "", createdAt: "2026-07-03T07:30:00Z", expiresAt: "2026-07-04T07:30:00Z", viewed: true, mediaUrl: "" },
+    st4: { authorId: "u_old", authorName: "Marina", authorAvatar: "", createdAt: "2026-07-01T10:00:00Z", expiresAt: "2026-07-02T10:00:00Z", viewed: false, mediaUrl: "" },
+  },
+  profiles: {
+    u_me: { name: "Israel", avatar: "", bio: "Construindo o SuperApp local-first.", followers: 128, following: 84, visibility: "public", isFollowing: false },
+    u1: { name: "Ana Ribeiro", avatar: "", bio: "Design de sistemas · Aurora Studio.", followers: 452, following: 210, visibility: "public", isFollowing: true },
+    u2: { name: "Pedro L.", avatar: "", bio: "Jurídico e contratos.", followers: 92, following: 55, visibility: "private", isFollowing: false },
+    u3: { name: "Marina", avatar: "", bio: "Arte digital · perfil privado.", followers: 1204, following: 88, visibility: "private", isFollowing: true },
+  },
 };
 
 const initialValues = {
