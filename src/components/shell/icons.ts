@@ -13,6 +13,7 @@ import {
   Bell,
   MessageSquare,
   Briefcase,
+  Calculator,
   type LucideIcon,
 } from "lucide-react";
 
@@ -31,4 +32,5 @@ export const navIconMap: Record<string, LucideIcon> = {
   bell: Bell,
   "message-square": MessageSquare,
   briefcase: Briefcase,
+  calculator: Calculator,
 };

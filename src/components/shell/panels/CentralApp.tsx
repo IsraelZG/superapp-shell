@@ -6,6 +6,7 @@ import { SocialModule } from "@/components/social/SocialModule";
 import { MarketplaceModule } from "@/components/marketplace/MarketplaceModule";
 import { StudioModule } from "@/components/studio/StudioModule";
 import { ErpModule } from "@/components/erp/ErpModule";
+import { ContabilModule } from "@/components/contabil/ContabilModule";
 
 export function CentralApp({
   onSplit,
@@ -37,6 +38,10 @@ export function CentralApp({
 
   if (activeNav === "erp") {
     return <ErpModule />;
+  }
+
+  if (activeNav === "contabil") {
+    return <ContabilModule />;
   }
 
   return (

@@ -23,6 +23,7 @@ const initialTables = {
     marketplace: { label: "Marketplace", icon: "shopping-bag", order: 5 },
     mensagens: { label: "Mensagens", icon: "message-circle", order: 6 },
     erp: { label: "ERP", icon: "briefcase", order: 7 },
+    contabil: { label: "Contábil", icon: "calculator", order: 8 },
   },
   commsMenu: {
     email: { label: "Email", icon: "mail", order: 1 },
@@ -289,6 +290,46 @@ const initialTables = {
     cu3: { name: "Marina", email: "marina@marina.studio", segment: "Creator", lifetimeValue: 12440, lastContact: "2026-07-03T08:12:00Z" },
     cu4: { name: "Rafael", email: "rafael@rmarket.br", segment: "SMB", lifetimeValue: 1800, lastContact: "2026-06-18T11:00:00Z" },
   },
+  // ============ B4 — Contábil / Fiscal / RH ============
+  // Invariantes:
+  // - `accounts` é uma árvore por `parentCode` (null = raiz). Sem ciclos.
+  // - `entries.derivedFrom` sinaliza a origem sistêmica (ex. "Pedido #o_123");
+  //   reforça o princípio de que lançamentos vêm de eventos, não digitação livre.
+  // - `entries.taxPeriodId` referencia `taxPeriods`. Período com
+  //   `status:"fechado"` torna todos os `entries` daquele período read-only na UI.
+  // - Jurisdição fiscal NÃO existe no mockup por design — qualquer export
+  //   fiscal (SPED/NF-e) deve mostrar o estado "conector/jurisdição ausente".
+  accounts: {
+    a1:     { code: "1",     name: "Ativo",                parentCode: null,    kind: "ativo" },
+    a11:    { code: "1.1",   name: "Ativo Circulante",     parentCode: "1",     kind: "ativo" },
+    a111:   { code: "1.1.1", name: "Caixa",                parentCode: "1.1",   kind: "ativo" },
+    a112:   { code: "1.1.2", name: "Bancos",               parentCode: "1.1",   kind: "ativo" },
+    a2:     { code: "2",     name: "Passivo",              parentCode: null,    kind: "passivo" },
+    a21:    { code: "2.1",   name: "Fornecedores",         parentCode: "2",     kind: "passivo" },
+    a3:     { code: "3",     name: "Receitas",             parentCode: null,    kind: "receita" },
+    a31:    { code: "3.1",   name: "Vendas de serviços",   parentCode: "3",     kind: "receita" },
+    a4:     { code: "4",     name: "Despesas",             parentCode: null,    kind: "despesa" },
+    a41:    { code: "4.1",   name: "Despesas operacionais", parentCode: "4",    kind: "despesa" },
+  },
+  taxPeriods: {
+    tp1: { label: "2026-Q1", status: "fechado", closedAt: "2026-04-10T18:00:00Z" },
+    tp2: { label: "2026-Q2", status: "aberto",  closedAt: null },
+    tp3: { label: "2026-Q3", status: "aberto",  closedAt: null },
+  },
+  entries: {
+    e1: { accountCode: "3.1",   description: "Receita — Consultoria Aurora",   amount: 4200,  date: "2026-06-28T14:20:00Z", derivedFrom: "Pedido #so1",    taxPeriodId: "tp2" },
+    e2: { accountCode: "1.1.2", description: "Recebimento em conta corrente",  amount: 4200,  date: "2026-06-29T09:00:00Z", derivedFrom: "Pedido #so1",    taxPeriodId: "tp2" },
+    e3: { accountCode: "4.1",   description: "Compra de material — Papelaria", amount: -890,  date: "2026-06-20T10:00:00Z", derivedFrom: "Compra #po1",    taxPeriodId: "tp2" },
+    e4: { accountCode: "3.1",   description: "Receita — Assinatura Studio",    amount: 1188,  date: "2026-07-01T09:05:00Z", derivedFrom: "Pedido #so2",    taxPeriodId: "tp3" },
+    e5: { accountCode: "4.1",   description: "Folha — competência Mar/26",     amount: -8400, date: "2026-03-30T12:00:00Z", derivedFrom: "Folha #mar26",   taxPeriodId: "tp1" },
+    e6: { accountCode: "3.1",   description: "Receita — Workshop presencial",  amount: 2800,  date: "2026-07-02T16:40:00Z", derivedFrom: "Pedido #so4",    taxPeriodId: "tp3" },
+  },
+  employees: {
+    emp1: { name: "Ana Ribeiro",  role: "Designer sênior", department: "Design",     hiredAt: "2024-03-11", status: "ativo" },
+    emp2: { name: "Pedro L.",     role: "Advogado",        department: "Jurídico",   hiredAt: "2023-08-01", status: "ativo" },
+    emp3: { name: "Rafael",       role: "Engenheiro",      department: "Engenharia", hiredAt: "2025-01-15", status: "ativo" },
+    emp4: { name: "Julia",        role: "Product manager", department: "Produto",    hiredAt: "2022-11-20", status: "desligado" },
+  },
 };
 
 const initialValues = {
@@ -321,7 +362,7 @@ const initialValues = {
 
 // Fake persister — swap this file for a real persistence layer later.
 if (typeof window !== "undefined") {
-  const persister = createLocalPersister(store, "superapp-mockup-v6");
+  const persister = createLocalPersister(store, "superapp-mockup-v7");
   persister
     .startAutoLoad([initialTables, initialValues])
     .then(() => persister.startAutoSave());
