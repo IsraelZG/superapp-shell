@@ -22,6 +22,7 @@ const initialTables = {
     midia: { label: "Mídia", icon: "image", order: 4 },
     marketplace: { label: "Marketplace", icon: "shopping-bag", order: 5 },
     mensagens: { label: "Mensagens", icon: "message-circle", order: 6 },
+    erp: { label: "ERP", icon: "briefcase", order: 7 },
   },
   commsMenu: {
     email: { label: "Email", icon: "mail", order: 1 },
@@ -242,6 +243,52 @@ const initialTables = {
     ml3: { name: "voz-do-cliente.wav", kind: "audio", size: "6.7 MB" },
     ml4: { name: "logo-mono.svg", kind: "image", size: "12 KB" },
   },
+  // ============ B3 — ERP / CRM ============
+  // Invariantes:
+  // - `inventory` é multi-depósito: mesmo `sku` pode aparecer em vários
+  //   `warehouseId`. Agrupamos por SKU na UI, não no store.
+  // - `lockExpiresAt` é ISO string. Se já passou → UI mostra "Reserva expirada"
+  //   (nota informativa; não liberamos qtyReserved automaticamente no mockup).
+  // - `pipeline.stage` ∈ {prospecção, qualificação, proposta, fechamento} —
+  //   drag-and-drop atualiza o campo direto no TinyBase.
+  // - Visão 360 do cliente é traversal por `customerName` (mockup: filter, não
+  //   índice).
+  salesOrders: {
+    so1: { customerName: "Ana Ribeiro", items: "3× Kit branding · 1× Consultoria", total: 4200, status: "faturado", createdAt: "2026-06-28T14:20:00Z" },
+    so2: { customerName: "Pedro L.", items: "1× Assinatura anual Studio", total: 1188, status: "confirmado", createdAt: "2026-07-01T09:05:00Z" },
+    so3: { customerName: "Marina", items: "2× Print série Aurora A3", total: 440, status: "rascunho", createdAt: "2026-07-03T08:12:00Z" },
+    so4: { customerName: "Ana Ribeiro", items: "1× Workshop presencial", total: 2800, status: "confirmado", createdAt: "2026-07-02T16:40:00Z" },
+  },
+  purchaseOrders: {
+    po1: { supplierName: "Papelaria Norte", items: "20× Bloco A4 · 5× Tinta CMYK", total: 890, status: "recebido", createdAt: "2026-06-20T10:00:00Z" },
+    po2: { supplierName: "TechSupply", items: "3× Monitor 27\"", total: 6300, status: "aprovado", createdAt: "2026-06-30T15:30:00Z" },
+    po3: { supplierName: "Cafés do Sul", items: "10kg grão especial", total: 480, status: "solicitado", createdAt: "2026-07-03T07:45:00Z" },
+  },
+  inventory: {
+    // SKU-001 em 2 depósitos, com reserva ativa em SP
+    inv1: { sku: "SKU-001", name: "Kit branding premium", warehouseId: "wh-sp", warehouseName: "Depósito SP", qtyAvailable: 40, qtyReserved: 3, lockExpiresAt: new Date(Date.now() + 12 * 60 * 1000).toISOString() },
+    inv2: { sku: "SKU-001", name: "Kit branding premium", warehouseId: "wh-rj", warehouseName: "Depósito RJ", qtyAvailable: 12, qtyReserved: 0, lockExpiresAt: "" },
+    // SKU-014 em 2 depósitos, com reserva EXPIRADA em RJ
+    inv3: { sku: "SKU-014", name: "Print Aurora A3", warehouseId: "wh-sp", warehouseName: "Depósito SP", qtyAvailable: 24, qtyReserved: 0, lockExpiresAt: "" },
+    inv4: { sku: "SKU-014", name: "Print Aurora A3", warehouseId: "wh-rj", warehouseName: "Depósito RJ", qtyAvailable: 8, qtyReserved: 2, lockExpiresAt: new Date(Date.now() - 5 * 60 * 1000).toISOString() },
+    // SKU-032 só em SP
+    inv5: { sku: "SKU-032", name: "Monitor 27\"", warehouseId: "wh-sp", warehouseName: "Depósito SP", qtyAvailable: 6, qtyReserved: 0, lockExpiresAt: "" },
+    inv6: { sku: "SKU-047", name: "Bloco A4 pautado", warehouseId: "wh-rj", warehouseName: "Depósito RJ", qtyAvailable: 120, qtyReserved: 0, lockExpiresAt: "" },
+  },
+  pipeline: {
+    pl1: { dealName: "Rebranding Aurora", customerName: "Ana Ribeiro", stage: "proposta", value: 18000, owner: "Israel" },
+    pl2: { dealName: "Renovação anual Studio", customerName: "Pedro L.", stage: "fechamento", value: 1188, owner: "Israel" },
+    pl3: { dealName: "Consultoria trimestral", customerName: "Marina", stage: "qualificação", value: 6400, owner: "Ana" },
+    pl4: { dealName: "Piloto Marketplace", customerName: "Rafael", stage: "prospecção", value: 3200, owner: "Israel" },
+    pl5: { dealName: "Pacote onboarding", customerName: "Julia", stage: "prospecção", value: 890, owner: "Ana" },
+    pl6: { dealName: "Expansão SP", customerName: "Ana Ribeiro", stage: "qualificação", value: 12500, owner: "Israel" },
+  },
+  customers: {
+    cu1: { name: "Ana Ribeiro", email: "ana@aurora.co", segment: "Enterprise", lifetimeValue: 42800, lastContact: "2026-07-02T16:40:00Z" },
+    cu2: { name: "Pedro L.", email: "pedro@lopes.dev", segment: "SMB", lifetimeValue: 4356, lastContact: "2026-07-01T09:05:00Z" },
+    cu3: { name: "Marina", email: "marina@marina.studio", segment: "Creator", lifetimeValue: 12440, lastContact: "2026-07-03T08:12:00Z" },
+    cu4: { name: "Rafael", email: "rafael@rmarket.br", segment: "SMB", lifetimeValue: 1800, lastContact: "2026-06-18T11:00:00Z" },
+  },
 };
 
 const initialValues = {
@@ -274,7 +321,7 @@ const initialValues = {
 
 // Fake persister — swap this file for a real persistence layer later.
 if (typeof window !== "undefined") {
-  const persister = createLocalPersister(store, "superapp-mockup-v5");
+  const persister = createLocalPersister(store, "superapp-mockup-v6");
   persister
     .startAutoLoad([initialTables, initialValues])
     .then(() => persister.startAutoSave());

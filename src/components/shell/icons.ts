@@ -12,6 +12,7 @@ import {
   Mail,
   Bell,
   MessageSquare,
+  Briefcase,
   type LucideIcon,
 } from "lucide-react";
 
@@ -29,4 +30,5 @@ export const navIconMap: Record<string, LucideIcon> = {
   mail: Mail,
   bell: Bell,
   "message-square": MessageSquare,
+  briefcase: Briefcase,
 };
