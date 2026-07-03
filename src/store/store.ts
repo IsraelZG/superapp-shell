@@ -99,6 +99,13 @@ const initialTables = {
     n4: { title: "Nova versão disponível", body: "SuperApp 1.4 traz melhorias no editor de tema.", read: false, createdAt: "2026-07-02T15:20:00Z", kind: "info" },
     n5: { title: "Peer offline", body: "iPhone — Israel ficou offline.", read: true, createdAt: "2026-07-01T22:11:00Z", kind: "sync" },
   },
+  catalogItems: {
+    ci1: { title: "Pedido #4821", subtitle: "Marketplace — despachado", status: "done", order: 1 },
+    ci2: { title: "Transferência R$ 320,00", subtitle: "Fintech — pendente de compensação", status: "pending", order: 2 },
+    ci3: { title: "Reserva de sala Aurora", subtitle: "Studio — bloqueada até 14:32", status: "pending", order: 3 },
+    ci4: { title: "Backup local", subtitle: "Sync — finalizado", status: "done", order: 4 },
+    ci5: { title: "Convite de calendário", subtitle: "Agente — rascunho aguardando aprovação", status: "pending", order: 5 },
+  },
   searchIndex: {
     s1: { title: "Ana Ribeiro", type: "person", snippet: "Contato — última msg 09:42", allowed: true },
     s2: { title: "Pedro L.", type: "person", snippet: "Contato — contrato assinado", allowed: true },
