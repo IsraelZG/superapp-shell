@@ -65,12 +65,14 @@ export function DestructiveModal({
   onOpenChange,
   title,
   description,
+  confirmLabel = "Excluir definitivamente",
   onConfirm,
 }: {
   open: boolean;
   onOpenChange: (v: boolean) => void;
   title: string;
   description: string;
+  confirmLabel?: string;
   onConfirm: () => void;
 }) {
   const [ack, setAck] = useState(false);
@@ -119,7 +121,7 @@ export function DestructiveModal({
               onOpenChange(false);
             }}
           >
-            Excluir definitivamente
+            {confirmLabel}
           </Button>
         </DialogFooter>
       </DialogContent>
