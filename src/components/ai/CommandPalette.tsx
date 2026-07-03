@@ -93,12 +93,10 @@ export function CommandPalette() {
           borderColor: "var(--ds-theme-border-subtle)",
         }}
       >
-        <VisuallyHidden>
-          <DialogTitle>Paleta de comandos</DialogTitle>
-          <DialogDescription>
-            Busque, execute ações ou peça algo à IA. Use as setas e Enter.
-          </DialogDescription>
-        </VisuallyHidden>
+        <DialogTitle className="sr-only">Paleta de comandos</DialogTitle>
+        <DialogDescription className="sr-only">
+          Busque, execute ações ou peça algo à IA. Use as setas e Enter.
+        </DialogDescription>
         <ModeTabs mode={mode} setMode={setMode} />
         <Command shouldFilter={mode !== "search"} loop>
           <CommandInput
