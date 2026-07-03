@@ -37,7 +37,7 @@ const initialTables = {
   },
   collapsed: {},
   identity: {},
-  consents: {} as Record<string, Record<string, unknown>>,
+  consents: {},
   roles: {
     r1: {
       subjectName: "Assistente de Agenda",
