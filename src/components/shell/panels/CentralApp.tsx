@@ -11,6 +11,7 @@ import { MapaModule } from "@/components/mapa/MapaModule";
 import { LogisticaModule } from "@/components/logistica/LogisticaModule";
 import { StreamingModule } from "@/components/streaming/StreamingModule";
 import { AdsModule } from "@/components/ads/AdsModule";
+import { EmailModule } from "@/components/email/EmailModule";
 
 export function CentralApp({
   onSplit,
@@ -20,9 +21,16 @@ export function CentralApp({
   onOpenColumn?: (label: string) => void;
 }) {
   const activeNav = useValue("activeNav") as string;
+  const activeComms = useValue("activeComms") as string;
   const label = (useCell("modules", activeNav, "label") as string) ?? "App";
   const iconName = useCell("modules", activeNav, "icon") as string;
   const Icon = navIconMap[iconName];
+
+  // B10 — quando o item "Email" do CommsRail está ativo, a coluna central
+  // renderiza o módulo de Email. Reusa o rail existente (não recria header/rail).
+  if (activeComms === "email") {
+    return <EmailModule />;
+  }
 
   if (activeNav === "mensagens") {
     return <ConversationView />;
