@@ -28,7 +28,7 @@ export function StreamingModule() {
 
   const channels = useTable("channels") as Record<string, any>;
   const videos = useTable("videos") as Record<string, any>;
-  const videoIds = useRowIds("videos");
+  const videoIds = useRowIds("videos") as string[];
 
   const openVideo = (id: string) => {
     const v = videos[id];
