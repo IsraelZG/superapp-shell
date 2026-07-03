@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AgenteRouteImport } from './routes/agente'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConfiguracoesIndexRouteImport } from './routes/configuracoes.index'
+import { Route as MensagensChamadaRouteImport } from './routes/mensagens.chamada'
 import { Route as ConfiguracoesPermissoesRouteImport } from './routes/configuracoes.permissoes'
 
 const AgenteRoute = AgenteRouteImport.update({
@@ -29,6 +30,11 @@ const ConfiguracoesIndexRoute = ConfiguracoesIndexRouteImport.update({
   path: '/configuracoes/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MensagensChamadaRoute = MensagensChamadaRouteImport.update({
+  id: '/mensagens/chamada',
+  path: '/mensagens/chamada',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConfiguracoesPermissoesRoute = ConfiguracoesPermissoesRouteImport.update({
   id: '/configuracoes/permissoes',
   path: '/configuracoes/permissoes',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agente': typeof AgenteRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
+  '/mensagens/chamada': typeof MensagensChamadaRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agente': typeof AgenteRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
+  '/mensagens/chamada': typeof MensagensChamadaRoute
   '/configuracoes': typeof ConfiguracoesIndexRoute
 }
 export interface FileRoutesById {
@@ -52,18 +60,30 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/agente': typeof AgenteRoute
   '/configuracoes/permissoes': typeof ConfiguracoesPermissoesRoute
+  '/mensagens/chamada': typeof MensagensChamadaRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/agente' | '/configuracoes/permissoes' | '/configuracoes/'
+  fullPaths:
+    | '/'
+    | '/agente'
+    | '/configuracoes/permissoes'
+    | '/mensagens/chamada'
+    | '/configuracoes/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agente' | '/configuracoes/permissoes' | '/configuracoes'
+  to:
+    | '/'
+    | '/agente'
+    | '/configuracoes/permissoes'
+    | '/mensagens/chamada'
+    | '/configuracoes'
   id:
     | '__root__'
     | '/'
     | '/agente'
     | '/configuracoes/permissoes'
+    | '/mensagens/chamada'
     | '/configuracoes/'
   fileRoutesById: FileRoutesById
 }
@@ -71,6 +91,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgenteRoute: typeof AgenteRoute
   ConfiguracoesPermissoesRoute: typeof ConfiguracoesPermissoesRoute
+  MensagensChamadaRoute: typeof MensagensChamadaRoute
   ConfiguracoesIndexRoute: typeof ConfiguracoesIndexRoute
 }
 
@@ -97,6 +118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfiguracoesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mensagens/chamada': {
+      id: '/mensagens/chamada'
+      path: '/mensagens/chamada'
+      fullPath: '/mensagens/chamada'
+      preLoaderRoute: typeof MensagensChamadaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/configuracoes/permissoes': {
       id: '/configuracoes/permissoes'
       path: '/configuracoes/permissoes'
@@ -111,6 +139,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgenteRoute: AgenteRoute,
   ConfiguracoesPermissoesRoute: ConfiguracoesPermissoesRoute,
+  MensagensChamadaRoute: MensagensChamadaRoute,
   ConfiguracoesIndexRoute: ConfiguracoesIndexRoute,
 }
 export const routeTree = rootRouteImport

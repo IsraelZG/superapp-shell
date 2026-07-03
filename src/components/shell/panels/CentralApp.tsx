@@ -1,6 +1,7 @@
 import { useCell, useValue } from "@/store/hooks";
 import { navIconMap } from "../icons";
 import { Columns2, PanelRightOpen, Plus } from "lucide-react";
+import { ConversationView } from "@/components/messaging/ConversationView";
 
 export function CentralApp({
   onSplit,
@@ -13,6 +14,10 @@ export function CentralApp({
   const label = (useCell("modules", activeNav, "label") as string) ?? "App";
   const iconName = useCell("modules", activeNav, "icon") as string;
   const Icon = navIconMap[iconName];
+
+  if (activeNav === "mensagens") {
+    return <ConversationView />;
+  }
 
   return (
     <div className="flex h-full w-full flex-col overflow-y-auto">
