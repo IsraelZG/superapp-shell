@@ -180,6 +180,68 @@ const initialTables = {
     sl3: { productId: "pr3", title: "Print A3 — série Aurora", status: "vendido", views: 640, sales: 12, revenue: 2640 },
     sl4: { productId: "pr6", title: "Assinatura mensal — comunidade", status: "pausado", views: 210, sales: 4, revenue: 116 },
   },
+  // ============ B12 — Studio (Office & Criação) ============
+  // Invariantes:
+  // - `documents.kind` ∈ {doc, sheet, slide, media} determina o editor renderizado.
+  // - `syncStatus` ∈ {synced, syncing, conflict-resolved}. `conflict-resolved` é uma
+  //   nota de auditoria SILENCIOSA (mescla CRDT automática), não é erro nem alerta.
+  // - Editores rodam em OVERLAY fixed inset-0 (exceção "editor precisa de mais área");
+  //   ver comentário em `src/components/studio/StudioModule.tsx`.
+  documents: {
+    d1: { title: "Briefing — Projeto Aurora", kind: "doc", updatedAt: "2026-07-03T09:42:00Z", ownerName: "Israel", collaborators: "Ana Ribeiro, Pedro L.", syncStatus: "synced" },
+    d2: { title: "Notas da reunião de kickoff", kind: "doc", updatedAt: "2026-07-02T15:10:00Z", ownerName: "Israel", collaborators: "Ana Ribeiro", syncStatus: "conflict-resolved" },
+    d3: { title: "Orçamento Q3", kind: "sheet", updatedAt: "2026-07-03T08:20:00Z", ownerName: "Israel", collaborators: "Pedro L.", syncStatus: "synced" },
+    d4: { title: "Roadmap 2026", kind: "sheet", updatedAt: "2026-07-01T18:40:00Z", ownerName: "Israel", collaborators: "", syncStatus: "syncing" },
+    d5: { title: "Deck de investidores", kind: "slide", updatedAt: "2026-07-02T22:05:00Z", ownerName: "Israel", collaborators: "Marina, Ana Ribeiro", syncStatus: "synced" },
+    d6: { title: "Capa Aurora — série", kind: "media", updatedAt: "2026-06-30T11:30:00Z", ownerName: "Israel", collaborators: "Marina", syncStatus: "synced" },
+  },
+  // Grade 6x4 (row 0..5, col 0..3) para d3 e d4. Só populamos células com conteúdo.
+  sheets: {
+    // d3 — Orçamento Q3 (cabeçalho + 3 linhas)
+    s_d3_r0c0: { documentId: "d3", row: 0, col: 0, value: "Categoria" },
+    s_d3_r0c1: { documentId: "d3", row: 0, col: 1, value: "Jul" },
+    s_d3_r0c2: { documentId: "d3", row: 0, col: 2, value: "Ago" },
+    s_d3_r0c3: { documentId: "d3", row: 0, col: 3, value: "Set" },
+    s_d3_r1c0: { documentId: "d3", row: 1, col: 0, value: "Infra" },
+    s_d3_r1c1: { documentId: "d3", row: 1, col: 1, value: "1200" },
+    s_d3_r1c2: { documentId: "d3", row: 1, col: 2, value: "1250" },
+    s_d3_r1c3: { documentId: "d3", row: 1, col: 3, value: "1300" },
+    s_d3_r2c0: { documentId: "d3", row: 2, col: 0, value: "Marketing" },
+    s_d3_r2c1: { documentId: "d3", row: 2, col: 1, value: "800" },
+    s_d3_r2c2: { documentId: "d3", row: 2, col: 2, value: "950" },
+    s_d3_r2c3: { documentId: "d3", row: 2, col: 3, value: "1100" },
+    s_d3_r3c0: { documentId: "d3", row: 3, col: 0, value: "Equipe" },
+    s_d3_r3c1: { documentId: "d3", row: 3, col: 1, value: "5400" },
+    s_d3_r3c2: { documentId: "d3", row: 3, col: 2, value: "5400" },
+    s_d3_r3c3: { documentId: "d3", row: 3, col: 3, value: "5600" },
+    // d4 — Roadmap 2026 (cabeçalho + 2 linhas)
+    s_d4_r0c0: { documentId: "d4", row: 0, col: 0, value: "Sprint" },
+    s_d4_r0c1: { documentId: "d4", row: 0, col: 1, value: "Escopo" },
+    s_d4_r0c2: { documentId: "d4", row: 0, col: 2, value: "Owner" },
+    s_d4_r0c3: { documentId: "d4", row: 0, col: 3, value: "Status" },
+    s_d4_r1c0: { documentId: "d4", row: 1, col: 0, value: "S1" },
+    s_d4_r1c1: { documentId: "d4", row: 1, col: 1, value: "Studio home" },
+    s_d4_r1c2: { documentId: "d4", row: 1, col: 2, value: "Israel" },
+    s_d4_r1c3: { documentId: "d4", row: 1, col: 3, value: "Em curso" },
+    s_d4_r2c0: { documentId: "d4", row: 2, col: 0, value: "S2" },
+    s_d4_r2c1: { documentId: "d4", row: 2, col: 1, value: "Editor de mídia" },
+    s_d4_r2c2: { documentId: "d4", row: 2, col: 2, value: "Israel" },
+    s_d4_r2c3: { documentId: "d4", row: 2, col: 3, value: "Planejado" },
+  },
+  // Slides mock (parent: documentId). Cada slide tem título + corpo simples.
+  slides: {
+    sl_d5_1: { documentId: "d5", order: 1, title: "SuperApp — visão", body: "Local-first · P2P · privacidade por padrão." },
+    sl_d5_2: { documentId: "d5", order: 2, title: "Problema", body: "Silos de dados, lock-in de nuvem, custo por usuário." },
+    sl_d5_3: { documentId: "d5", order: 3, title: "Solução", body: "Um app modular com sincronização CRDT entre dispositivos do usuário." },
+    sl_d5_4: { documentId: "d5", order: 4, title: "Tração", body: "Marketplace + Studio + Social integrados. 3 pilotos ativos." },
+  },
+  // Biblioteca de "arquivos" mock para o Insert Media modal.
+  mediaLibrary: {
+    ml1: { name: "aurora-cover.jpg", kind: "image", size: "2.4 MB" },
+    ml2: { name: "onboarding.mp4", kind: "video", size: "18.1 MB" },
+    ml3: { name: "voz-do-cliente.wav", kind: "audio", size: "6.7 MB" },
+    ml4: { name: "logo-mono.svg", kind: "image", size: "12 KB" },
+  },
 };
 
 const initialValues = {
@@ -212,7 +274,7 @@ const initialValues = {
 
 // Fake persister — swap this file for a real persistence layer later.
 if (typeof window !== "undefined") {
-  const persister = createLocalPersister(store, "superapp-mockup-v4");
+  const persister = createLocalPersister(store, "superapp-mockup-v5");
   persister
     .startAutoLoad([initialTables, initialValues])
     .then(() => persister.startAutoSave());
