@@ -24,6 +24,7 @@ const initialTables = {
     mensagens: { label: "Mensagens", icon: "message-circle", order: 6 },
     erp: { label: "ERP", icon: "briefcase", order: 7 },
     contabil: { label: "Contábil", icon: "calculator", order: 8 },
+    mapa: { label: "Mapa", icon: "map-pin", order: 9 },
   },
   commsMenu: {
     email: { label: "Email", icon: "mail", order: 1 },
