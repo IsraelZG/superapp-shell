@@ -1,4 +1,4 @@
-import { useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { useRowIds, useRow, useTable, store } from "@/store/hooks";
 import {
   Dialog,
@@ -768,6 +768,14 @@ export function CalendarioModule() {
   const [view, setView] = useState<View>("mes");
   const [cursor, setCursor] = useState<Date>(() => new Date("2026-07-06T00:00:00"));
   const [openInstance, setOpenInstance] = useState<Instance | null>(null);
+  const [isDesktop, setIsDesktop] = useState<boolean>(() => (typeof window !== "undefined" ? window.matchMedia("(min-width: 768px)").matches : true));
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const m = window.matchMedia("(min-width: 768px)");
+    const h = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    m.addEventListener("change", h);
+    return () => m.removeEventListener("change", h);
+  }, []);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<{ id: string; row: EventRow } | null>(null);
   const [scopePrompt, setScopePrompt] = useState<null | { mode: "edit" | "delete"; inst: Instance }>(null);
@@ -1020,7 +1028,7 @@ export function CalendarioModule() {
         </div>
       </div>
 
-      {openInstance && (
+      {openInstance && isDesktop && (
         <aside
           className="hidden w-[380px] shrink-0 border-l md:flex"
           style={{ borderColor: "var(--ds-theme-border-subtle)" }}
@@ -1036,9 +1044,9 @@ export function CalendarioModule() {
       )}
 
       {/* Detalhe em modal para mobile */}
-      {openInstance && (
+      {openInstance && !isDesktop && (
         <Dialog open={true} onOpenChange={(v) => { if (!v) setOpenInstance(null); }}>
-          <DialogContent className="md:hidden">
+          <DialogContent>
             <EventDetail
               inst={openInstance}
               onClose={() => setOpenInstance(null)}
