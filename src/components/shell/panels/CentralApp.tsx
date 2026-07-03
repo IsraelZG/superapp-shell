@@ -4,6 +4,7 @@ import { Columns2, PanelRightOpen, Plus } from "lucide-react";
 import { ConversationView } from "@/components/messaging/ConversationView";
 import { SocialModule } from "@/components/social/SocialModule";
 import { MarketplaceModule } from "@/components/marketplace/MarketplaceModule";
+import { StudioModule } from "@/components/studio/StudioModule";
 
 export function CentralApp({
   onSplit,
@@ -27,6 +28,10 @@ export function CentralApp({
 
   if (activeNav === "marketplace") {
     return <MarketplaceModule />;
+  }
+
+  if (activeNav === "studio") {
+    return <StudioModule />;
   }
 
   return (
