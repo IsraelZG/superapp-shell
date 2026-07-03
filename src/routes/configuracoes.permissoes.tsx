@@ -4,8 +4,7 @@ import { ArrowLeft, ShieldOff, User, AppWindow, Ban, Undo2 } from "lucide-react"
 import {
   useSortedRowIds,
   useRow,
-  useDelRowCallback,
-  useSetRowCallback,
+  store,
 } from "@/store/hooks";
 import { ThemeSync } from "@/components/shell/ThemeSync";
 import { Button } from "@/components/ui/button";
@@ -90,7 +89,9 @@ function PermissoesPage() {
 function RolesPanel() {
   const ids = useSortedRowIds("roles", "subjectName");
   const [pending, setPending] = useState<string | null>(null);
-  const revoke = useDelRowCallback("roles", () => pending ?? "", [pending]);
+  const revoke = () => {
+    if (pending) store.delRow("roles", pending);
+  };
 
   return (
     <div
@@ -248,12 +249,13 @@ function RoleRow({ id, onRevoke }: { id: string; onRevoke: () => void }) {
 function BlocksPanel() {
   const ids = useSortedRowIds("blocks", "profileName");
   const [name, setName] = useState("");
-  const addBlock = useSetRowCallback(
-    "blocks",
-    () => `b_${Date.now()}`,
-    () => ({ profileName: name, blockedAt: new Date().toISOString().slice(0, 10) }),
-    [name],
-  );
+  const addBlock = () => {
+    if (!name.trim()) return;
+    store.setRow("blocks", `b_${Date.now()}`, {
+      profileName: name,
+      blockedAt: new Date().toISOString().slice(0, 10),
+    });
+  };
 
   return (
     <div className="space-y-4">
@@ -282,7 +284,6 @@ function BlocksPanel() {
         <Button
           type="button"
           onClick={() => {
-            if (!name.trim()) return;
             addBlock();
             setName("");
           }}
@@ -323,7 +324,7 @@ function BlocksPanel() {
 
 function BlockRow({ id }: { id: string }) {
   const row = useRow("blocks", id) as { profileName?: string; blockedAt?: string };
-  const unblock = useDelRowCallback("blocks", () => id, [id]);
+  const unblock = () => store.delRow("blocks", id);
   return (
     <li className="flex flex-wrap items-center gap-3 p-4">
       <div className="min-w-0 flex-1">
