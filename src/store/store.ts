@@ -76,6 +76,28 @@ const initialTables = {
     n4: { title: "Nova versão disponível", body: "SuperApp 1.4 traz melhorias no editor de tema.", read: false, createdAt: "2026-07-02T15:20:00Z", kind: "info" },
     n5: { title: "Peer offline", body: "iPhone — Israel ficou offline.", read: true, createdAt: "2026-07-01T22:11:00Z", kind: "sync" },
   },
+  searchIndex: {
+    s1: { title: "Ana Ribeiro", type: "person", snippet: "Contato — última msg 09:42", allowed: true },
+    s2: { title: "Pedro L.", type: "person", snippet: "Contato — contrato assinado", allowed: true },
+    s3: { title: "Equipe Studio", type: "person", snippet: "Grupo — 6 membros", allowed: true },
+    s4: { title: "Boa! Combinamos amanhã.", type: "content", snippet: "Mensagem em Ana Ribeiro", allowed: true },
+    s5: { title: "Novo mockup no board", type: "content", snippet: "Mensagem em Equipe Studio", allowed: true },
+    s6: { title: "Contrato Q3.pdf", type: "content", snippet: "Arquivo restrito ao setor jurídico", allowed: false },
+    s7: { title: "Salários 2026.xlsx", type: "content", snippet: "Planilha confidencial RH", allowed: false },
+    s8: { title: "Fintech", type: "app", snippet: "Módulo — carteira e transferências", allowed: true },
+    s9: { title: "Studio", type: "app", snippet: "Módulo — editor criativo", allowed: true },
+    s10: { title: "Marketplace", type: "app", snippet: "Módulo — pedidos e vendas", allowed: true },
+    s11: { title: "Abrir Configurações", type: "action", snippet: "Ir para /configuracoes", allowed: true },
+    s12: { title: "Alternar tema claro/escuro", type: "action", snippet: "Ação rápida", allowed: true },
+  },
+  agentActions: {
+    a1: { actor: "user", action: "Buscou por \"contrato Ana\"", timestamp: "2026-07-03T09:02:00Z", status: "done" },
+    a2: { actor: "agent", action: "Resumiu 3 mensagens recentes de Ana Ribeiro", timestamp: "2026-07-03T09:03:00Z", status: "done" },
+    a3: { actor: "user", action: "Pediu para agendar reunião com Pedro", timestamp: "2026-07-03T09:15:00Z", status: "done" },
+    a4: { actor: "agent", action: "Rascunhou convite de calendário (aguardando aprovação)", timestamp: "2026-07-03T09:15:30Z", status: "in_progress" },
+    a5: { actor: "user", action: "Abriu painel de permissões", timestamp: "2026-07-03T09:20:00Z", status: "done" },
+    a6: { actor: "agent", action: "Sugeriu revogar acesso expirado de Backup Local", timestamp: "2026-07-03T09:21:00Z", status: "done" },
+  },
 };
 
 const initialValues = {
@@ -102,6 +124,7 @@ const initialValues = {
   density: "cozy" as "cozy" | "compact",
   reduceMotion: false,
   highContrast: false,
+  commandPaletteOpen: false,
 };
 
 // Fake persister — swap this file for a real persistence layer later.
