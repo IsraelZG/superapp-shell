@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import {
   Layout,
   Model,
@@ -130,6 +130,8 @@ function loadModel(): Model {
 }
 
 export function Workspace() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const [model] = useState<Model>(() => loadModel());
   const openedCounter = useRef(0);
 
@@ -260,11 +262,9 @@ export function Workspace() {
   return (
     <div className="relative flex min-h-0 flex-1 flex-col">
       <div className="relative min-h-0 flex-1">
-        <Layout
-          model={model}
-          factory={factory}
-          onModelChange={persist}
-        />
+        {mounted ? (
+          <Layout model={model} factory={factory} onModelChange={persist} />
+        ) : null}
       </div>
       <CollapsedStack onRestore={restoreCollapsed} />
     </div>
