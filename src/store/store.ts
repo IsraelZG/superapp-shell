@@ -37,6 +37,33 @@ const initialTables = {
   },
   collapsed: {},
   identity: {},
+  consents: {} as Record<string, Record<string, unknown>>,
+  roles: {
+    r1: {
+      subjectName: "Assistente de Agenda",
+      subjectType: "app",
+      capability: "Ler seus eventos de calendário",
+      scope: "Calendário pessoal",
+      expiresAt: "2026-07-10",
+    },
+    r2: {
+      subjectName: "Ana Ribeiro",
+      subjectType: "person",
+      capability: "Ver seu perfil e status",
+      scope: "Perfil público",
+      expiresAt: "Sem prazo",
+    },
+    r3: {
+      subjectName: "Backup Local",
+      subjectType: "app",
+      capability: "Ler mídia da galeria",
+      scope: "Álbum: Viagens",
+      expiresAt: "2026-08-01",
+    },
+  },
+  blocks: {
+    b1: { profileName: "Perfil Spam #4821", blockedAt: "2026-06-20" },
+  },
 };
 
 const initialValues = {
@@ -52,6 +79,13 @@ const initialValues = {
   online: true,
   mobileOverlay: "" as "" | "comms" | "modules",
   onboardingStep: "welcome" as "welcome" | "create" | "confirm" | "unlock" | "done",
+  consentPromptOpen: false,
+  consentRequesterName: "",
+  consentRequesterIcon: "",
+  consentCapability: "",
+  consentScopeDescription: "",
+  consentDataScope: "",
+  consentTTL: "",
 };
 
 // Fake persister — swap this file for a real persistence layer later.
