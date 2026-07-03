@@ -17,6 +17,7 @@ import {
   MapPin,
   Truck,
   PlayCircle,
+  Megaphone,
   type LucideIcon,
 } from "lucide-react";
 
@@ -39,4 +40,5 @@ export const navIconMap: Record<string, LucideIcon> = {
   "map-pin": MapPin,
   truck: Truck,
   "play-circle": PlayCircle,
+  megaphone: Megaphone,
 };

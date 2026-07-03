@@ -27,6 +27,7 @@ const initialTables = {
     mapa: { label: "Mapa", icon: "map-pin", order: 9 },
     logistica: { label: "Logística", icon: "truck", order: 10 },
     streaming: { label: "Streaming", icon: "play-circle", order: 11 },
+    ads: { label: "Anúncios", icon: "megaphone", order: 12 },
   },
   commsMenu: {
     email: { label: "Email", icon: "mail", order: 1 },
@@ -409,6 +410,28 @@ const initialTables = {
   subscriptions: {
     sub1: { channelId: "ch1", subscribedAt: "2026-05-10T00:00:00Z" },
   },
+  // ============ B9 — Anúncios (T-AD) ============
+  // Invariantes:
+  // - Verba estourada (`budgetSpent >= budgetTotal`) sinaliza pausa visual
+  //   independentemente do `status` armazenado — a UI marca "esgotado".
+  // - `targetingBlocked:true` significa que o dado de origem da segmentação
+  //   é restrito por permissão; a UI NÃO tenta revelar quais critérios eram
+  //   (reforça o princípio: não vazar o que o anunciante não deve ver).
+  // - `suspiciousClicks` é anti-fraude declarada: cliques excluídos da cobrança
+  //   por proteção ativa, não é erro.
+  campaigns: {
+    ca1: { name: "Aurora — lançamento",        objective: "trafego",      budgetTotal: 1200, budgetSpent:  420, pacing: "uniforme",  status: "ativa",     startDate: "2026-06-25", endDate: "2026-07-15", targetingBlocked: false },
+    ca2: { name: "Fintech Labs — curso Sagas", objective: "conversao",    budgetTotal:  800, budgetSpent:  810, pacing: "acelerado", status: "ativa",     startDate: "2026-06-20", endDate: "2026-07-10", targetingBlocked: false },
+    ca3: { name: "Print A3 — série limitada",  objective: "engajamento",  budgetTotal:  500, budgetSpent:  145, pacing: "uniforme",  status: "ativa",     startDate: "2026-07-01", endDate: "2026-07-31", targetingBlocked: true  },
+    ca4: { name: "Comunidade Aurora (retarg.)",objective: "instalacoes",  budgetTotal:  300, budgetSpent:  300, pacing: "uniforme",  status: "encerrada", startDate: "2026-05-10", endDate: "2026-06-10", targetingBlocked: false },
+  },
+  creatives: {
+    cr1: { campaignId: "ca1", headline: "Novos templates locais-first", bodyText: "Design de sistemas sem lock-in de nuvem.",          imageLabel: "AUR", ctr: 2.4, impressions: 42800, clicks: 1027, suspiciousClicks:  38 },
+    cr2: { campaignId: "ca1", headline: "Tokens semânticos prontos",    bodyText: "Baixe a biblioteca e integre em minutos.",           imageLabel: "TOK", ctr: 1.9, impressions: 18400, clicks:  350, suspiciousClicks:   6 },
+    cr3: { campaignId: "ca2", headline: "Curso Sagas em pagamentos",    bodyText: "12h de aulas + estudos de caso reais.",              imageLabel: "SAG", ctr: 3.1, impressions: 15200, clicks:  471, suspiciousClicks:   0 },
+    cr4: { campaignId: "ca3", headline: "Print A3 — Aurora #012",       bodyText: "Edição numerada e assinada. Poucos exemplares.",     imageLabel: "PR3", ctr: 4.2, impressions:  4800, clicks:  201, suspiciousClicks:   0 },
+    cr5: { campaignId: "ca4", headline: "Faça parte da comunidade",     bodyText: "Mentorias, replays e conteúdo exclusivo.",           imageLabel: "COM", ctr: 1.2, impressions: 25000, clicks:  300, suspiciousClicks: 142 },
+  },
 };
 
 const initialValues = {
@@ -441,7 +464,7 @@ const initialValues = {
 
 // Fake persister — swap this file for a real persistence layer later.
 if (typeof window !== "undefined") {
-  const persister = createLocalPersister(store, "superapp-mockup-v10");
+  const persister = createLocalPersister(store, "superapp-mockup-v11");
   persister
     .startAutoLoad([initialTables, initialValues])
     .then(() => persister.startAutoSave());
