@@ -104,14 +104,14 @@ export function MapaModule() {
   const [locationDenied, setLocationDenied] = useState(true);
   const [retryingLocation, setRetryingLocation] = useState(false);
 
+  // Toggle usando o valor atual lido de `placesTable` (fonte já reativa).
+  // `useSetCellCallback` recebe (paramGetter, cellIdGetter, cellValueGetter).
   const toggleSaved = useSetCellCallback(
     "places",
     (id: string) => id,
     () => "savedByMe",
-    () => (_: unknown, store) => {
-      // Ler o valor atual do próprio store — evita staleness da closure.
-      return (id: string) => !store.getCell("places", id, "savedByMe");
-    },
+    (id: string) => !placesTable[id]?.savedByMe,
+    [placesTable],
   );
 
   // Filtragem: nome OU categoria (substring, case-insensitive).
