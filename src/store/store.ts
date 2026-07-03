@@ -28,6 +28,7 @@ const initialTables = {
     logistica: { label: "Logística", icon: "truck", order: 10 },
     streaming: { label: "Streaming", icon: "play-circle", order: 11 },
     ads: { label: "Anúncios", icon: "megaphone", order: 12 },
+    calendario: { label: "Calendário", icon: "calendar", order: 13 },
   },
   commsMenu: {
     email: { label: "Email", icon: "mail", order: 1 },
