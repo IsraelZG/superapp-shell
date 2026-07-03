@@ -455,6 +455,24 @@ const initialTables = {
     em8: { accountId: "ea1", folder: "inbox",   fromName: "Israel",        fromAddress: "israel@aurora.co",    subject: "Lembrete pessoal (auto-enviado)",     preview: "Nota para mim mesmo — revisar tokens…",          body: "Nota para mim mesmo — revisar tokens semânticos antes do release.",                                                                       read: true,  sendStatus: "eco-suprimido", threadId: "t_self",   receivedAt: "2026-07-02T09:00:00Z" },
     em9: { accountId: "ea1", folder: "archive", fromName: "Fintech Labs",  fromAddress: "hello@fintechlabs.io",subject: "Curso Sagas — confirmação",           preview: "Sua inscrição foi confirmada. Você recebe…",     body: "Sua inscrição foi confirmada. Você recebe o material em breve.",                                                                          read: true,  sendStatus: null,          threadId: "t_curso",    receivedAt: "2026-06-20T11:00:00Z" },
   },
+  // ============ B11 — Calendário ============
+  // Invariantes:
+  // - 1 linha em `events` com `rrule` != null pode gerar N ocorrências visuais.
+  //   Instâncias virtuais são calculadas em memória no render (nunca criam
+  //   novas linhas em `events`). Ao editar/excluir UMA instância, o UX
+  //   pergunta "Esta ocorrência" vs "Toda a série" (padrão clássico).
+  // - `bookedCount >= capacity` = lotado (badge "Lotado", bloqueio no form).
+  // - `externalSource` != null = evento importado (badge de proveniência).
+  events: {
+    ev1: { title: "Kickoff Aurora",        startAt: "2026-07-06T13:00:00Z", endAt: "2026-07-06T14:00:00Z", allDay: false, location: "Sala Aurora — 4º andar", attendees: "Ana Ribeiro, Pedro L., Marina", rrule: null,                       capacity: null, bookedCount: null, externalSource: null,                 myRsvp: "aceito" },
+    ev2: { title: "Daily do Studio",       startAt: "2026-07-06T12:00:00Z", endAt: "2026-07-06T12:15:00Z", allDay: false, location: "Chamada — link no convite", attendees: "Marina, Rafael, Julia, Israel", rrule: "FREQ=WEEKLY;BYDAY=MO,WE,FR", capacity: null, bookedCount: null, externalSource: null,                 myRsvp: "aceito" },
+    ev3: { title: "Workshop de tokens semânticos", startAt: "2026-07-09T17:00:00Z", endAt: "2026-07-09T19:00:00Z", allDay: false, location: "Auditório B — inscrição obrigatória", attendees: "Israel, +29 confirmados", rrule: null, capacity: 30, bookedCount: 30, externalSource: null,                 myRsvp: "talvez" },
+    ev4: { title: "Feriado — dia inteiro", startAt: "2026-07-09T00:00:00Z", endAt: "2026-07-09T23:59:00Z", allDay: true,  location: "",                          attendees: "",                              rrule: null,                       capacity: null, bookedCount: null, externalSource: null,                 myRsvp: null      },
+    ev5: { title: "Revisão com Ana",       startAt: "2026-07-07T14:30:00Z", endAt: "2026-07-07T15:30:00Z", allDay: false, location: "Chamada",                   attendees: "Ana Ribeiro",                   rrule: null,                       capacity: null, bookedCount: null, externalSource: null,                 myRsvp: "aceito" },
+    ev6: { title: "Consulta médica",       startAt: "2026-07-10T11:00:00Z", endAt: "2026-07-10T12:00:00Z", allDay: false, location: "Clínica Aurora",           attendees: "",                              rrule: null,                       capacity: null, bookedCount: null, externalSource: "Google Calendar (.ics)", myRsvp: "aceito" },
+    ev7: { title: "Jantar com Pedro",      startAt: "2026-07-08T22:00:00Z", endAt: "2026-07-08T23:30:00Z", allDay: false, location: "Restaurante Aurora",       attendees: "Pedro L.",                      rrule: null,                       capacity: null, bookedCount: null, externalSource: null,                 myRsvp: "aceito" },
+    ev8: { title: "Retro mensal",          startAt: "2026-07-31T18:00:00Z", endAt: "2026-07-31T19:00:00Z", allDay: false, location: "Chamada",                   attendees: "Marina, Ana Ribeiro, Israel",   rrule: null,                       capacity: null, bookedCount: null, externalSource: null,                 myRsvp: "aceito" },
+  },
 };
 
 const initialValues = {
