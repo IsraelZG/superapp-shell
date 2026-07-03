@@ -331,6 +331,23 @@ const initialTables = {
     emp3: { name: "Rafael",       role: "Engenheiro",      department: "Engenharia", hiredAt: "2025-01-15", status: "ativo" },
     emp4: { name: "Julia",        role: "Product manager", department: "Produto",    hiredAt: "2022-11-20", status: "desligado" },
   },
+  // ============ B5 — Mapa ============
+  // Invariantes:
+  // - Coordenadas mock em torno de São Paulo. `distanceKm` é pré-calculada
+  //   (mockup) porque não pedimos geolocalização real do browser.
+  // - `savedByMe` é um toggle local por usuário — sem sync remoto.
+  // - Categorias livres (café, coworking, farmácia…). Sem enum estrito para
+  //   deixar a busca por categoria simples via substring.
+  places: {
+    pl_map1: { name: "Café Aurora",         category: "café",      lat: -23.561, lng: -46.656, distanceKm: 0.4, addressLabel: "R. Consolação, 2200 · Consolação",     savedByMe: true  },
+    pl_map2: { name: "Coworking Central",   category: "coworking", lat: -23.549, lng: -46.639, distanceKm: 1.1, addressLabel: "Av. Paulista, 1000 · Bela Vista",       savedByMe: false },
+    pl_map3: { name: "Farmácia São João",   category: "farmácia",  lat: -23.567, lng: -46.649, distanceKm: 0.6, addressLabel: "R. Augusta, 900 · Consolação",          savedByMe: false },
+    pl_map4: { name: "Padaria Bella",       category: "padaria",   lat: -23.556, lng: -46.671, distanceKm: 0.9, addressLabel: "R. Cardeal Arcoverde, 500 · Pinheiros", savedByMe: false },
+    pl_map5: { name: "Livraria da Vila",    category: "livraria",  lat: -23.577, lng: -46.688, distanceKm: 2.4, addressLabel: "R. Fradique Coutinho, 915 · Pinheiros", savedByMe: true  },
+    pl_map6: { name: "Academia FitLab",     category: "academia",  lat: -23.552, lng: -46.660, distanceKm: 0.8, addressLabel: "R. Estados Unidos, 1500 · Jardins",     savedByMe: false },
+    pl_map7: { name: "Parque Ibirapuera",   category: "parque",    lat: -23.587, lng: -46.657, distanceKm: 3.2, addressLabel: "Av. Pedro Álvares Cabral · Vila Mariana", savedByMe: false },
+    pl_map8: { name: "Mercado Municipal",   category: "mercado",   lat: -23.542, lng: -46.629, distanceKm: 2.1, addressLabel: "R. da Cantareira, 306 · Centro",         savedByMe: false },
+  },
 };
 
 const initialValues = {
