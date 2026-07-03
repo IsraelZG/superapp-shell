@@ -9,7 +9,7 @@
  */
 import { useMemo, useState } from "react";
 import { PlayCircle, Radio, Compass, Video, User } from "lucide-react";
-import { useTable, useRowIds, useSetCellCallback, useSetRowCallback } from "@/store/hooks";
+import { useTable, useRowIds } from "@/store/hooks";
 import { EmptyState } from "@/components/catalog/States";
 import { VideoPlayer } from "./VideoPlayer";
 import { ChannelPage } from "./ChannelPage";
@@ -169,7 +169,7 @@ function DiscoverView({
 }) {
   const liveIds = useMemo(() => videoIds.filter((id) => videos[id]?.kind === "live"), [videoIds, videos]);
   const vodIds = useMemo(() => videoIds.filter((id) => videos[id]?.kind === "vod"), [videoIds, videos]);
-  const channelIds = Object.keys(channels);
+  const channelIds: string[] = Object.keys(channels);
 
   return (
     <div className="flex flex-col gap-6">
