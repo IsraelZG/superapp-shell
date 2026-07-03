@@ -12,6 +12,7 @@ import { LogisticaModule } from "@/components/logistica/LogisticaModule";
 import { StreamingModule } from "@/components/streaming/StreamingModule";
 import { AdsModule } from "@/components/ads/AdsModule";
 import { EmailModule } from "@/components/email/EmailModule";
+import { CalendarioModule } from "@/components/calendario/CalendarioModule";
 
 export function CentralApp({
   onSplit,
@@ -70,6 +71,10 @@ export function CentralApp({
 
   if (activeNav === "ads") {
     return <AdsModule />;
+  }
+
+  if (activeNav === "calendario") {
+    return <CalendarioModule />;
   }
 
   return (

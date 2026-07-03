@@ -18,6 +18,7 @@ import {
   Truck,
   PlayCircle,
   Megaphone,
+  Calendar,
   type LucideIcon,
 } from "lucide-react";
 
@@ -41,4 +42,5 @@ export const navIconMap: Record<string, LucideIcon> = {
   truck: Truck,
   "play-circle": PlayCircle,
   megaphone: Megaphone,
+  calendar: Calendar,
 };
