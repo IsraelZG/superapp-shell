@@ -32,8 +32,8 @@ import {
   Settings,
   ArchiveRestore,
 } from "lucide-react";
-import { store, useTable, useValue, useSortedRowIds, useCell } from "@/store/hooks";
-import { EmptyState, SyncingState } from "@/components/catalog/States";
+import { store, useTable, useValue } from "@/store/hooks";
+import { EmptyState } from "@/components/catalog/States";
 
 // --------------------------------------------------------------------------
 // Tipos locais (espelham as linhas semeadas em store.ts)
@@ -615,9 +615,12 @@ function ThreadPane({
           >
             <Reply size={14} />
           </button>
-          {items.map((e) => (
-            <ArchiveButton key={e.id} emailId={e.id} folder={e.folder as Folder} />
-          )).slice(0, 1)}
+          {items[items.length - 1] && (
+            <ArchiveButton
+              emailId={items[items.length - 1].id}
+              folder={items[items.length - 1].folder as Folder}
+            />
+          )}
           <button
             type="button"
             onClick={onClose}
@@ -1298,9 +1301,3 @@ function AccountModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
-
-// Referências evitando warning de import não usado (SyncingState/useSortedRowIds/useCell/useRow-like
-// ficam disponíveis para extensões futuras deste módulo).
-void SyncingState;
-void useSortedRowIds;
-void useCell;
