@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeSync } from "@/components/shell/ThemeSync";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -97,6 +98,8 @@ function CatalogItemRow({ id }: { id: string }) {
 }
 
 function CatalogPage() {
+  // (parity with /configuracoes/permissoes — sem AppShell aqui, então
+  // precisamos sincronizar data-theme manualmente)
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [destructiveOpen, setDestructiveOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
@@ -146,6 +149,7 @@ function CatalogPage() {
       className="min-h-screen w-full"
       style={{ background: "var(--ds-theme-surface-canvas)", color: "var(--ds-theme-content-default)" }}
     >
+      <ThemeSync />
       <Toaster />
       <header
         className="flex items-center justify-between border-b px-6 py-4"
