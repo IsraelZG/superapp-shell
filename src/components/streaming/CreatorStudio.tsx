@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useTable, useRowIds, useSetRowCallback } from "@/store/hooks";
+import { useTable, useRowIds, store } from "@/store/hooks";
 import { Plus } from "lucide-react";
 import { EmptyState, PendingBadge, DoneBadge } from "@/components/catalog/States";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -27,22 +27,20 @@ export function CreatorStudio({
   const [title, setTitle] = useState("");
   const [file, setFile] = useState("video.mp4");
 
-  const publish = useSetRowCallback(
-    "videos",
-    (id: string) => id,
-    (payload: { title: string }) => ({
+  const publish = (newTitle: string) => {
+    const id = `v_${Date.now()}`;
+    store.setRow("videos", id, {
       channelId: myChannelId,
-      title: payload.title,
-      thumbnailLabel: payload.title.slice(0, 3).toUpperCase(),
+      title: newTitle,
+      thumbnailLabel: newTitle.slice(0, 3).toUpperCase(),
       durationSec: 600,
       views: 0,
       publishedAt: new Date().toISOString(),
       kind: "vod",
       renditionStatus: "processando",
       hasSeeder: true,
-    }),
-    [myChannelId],
-  );
+    });
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -139,7 +137,7 @@ export function CreatorStudio({
             onSubmit={(e) => {
               e.preventDefault();
               if (!title.trim()) return;
-              publish(`v_${Date.now()}`, { title: title.trim() });
+              publish(title.trim());
               setTitle("");
               setFile("video.mp4");
               setOpen(false);
