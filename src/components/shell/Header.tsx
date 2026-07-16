@@ -25,7 +25,7 @@ export function Header() {
           style={{
             width: 32,
             height: 32,
-            borderRadius: 10,
+            borderRadius: 0,
             background: "var(--ds-theme-intent-accent-fill)",
             color: "var(--ds-theme-intent-accent-on-fill)",
           }}
@@ -33,10 +33,16 @@ export function Header() {
           <Sparkles size={16} />
         </div>
         <span
-          className="truncate text-sm font-semibold tracking-tight"
-          style={{ color: "var(--ds-theme-content-strong)" }}
+          className="truncate text-sm font-bold uppercase"
+          style={{ color: "var(--ds-theme-content-strong)", fontFamily: "var(--font-display)", letterSpacing: "0.02em" }}
         >
-          SuperApp
+          SUPERAPP
+        </span>
+        <span
+          className="hidden md:inline-block ml-2 text-[10px]"
+          style={{ color: "var(--ds-theme-content-subtle)", fontFamily: "var(--font-mono)", letterSpacing: "0.12em" }}
+        >
+          [ LOCAL-FIRST · P2P ]
         </span>
       </div>
 
@@ -46,22 +52,27 @@ export function Header() {
         aria-label="Abrir paleta de comandos"
         className="hidden items-center gap-2 md:inline-flex"
         style={{
-          height: 34,
+          height: 32,
           padding: "0 12px",
-          borderRadius: 9999,
+          borderRadius: 0,
+          border: "1px solid var(--ds-theme-border-subtle)",
           background: "var(--ds-theme-surface-subdued)",
           color: "var(--ds-theme-content-muted)",
-          fontSize: 12,
+          fontSize: 11,
+          fontFamily: "var(--font-mono)",
+          textTransform: "uppercase",
+          letterSpacing: "0.08em",
         }}
       >
         <Command size={14} />
-        <span>Buscar…</span>
+        <span>Buscar</span>
         <span
-          className="ml-2 rounded px-1.5 py-0.5 text-[10px] font-semibold"
+          className="ml-2 px-1.5 py-0.5 text-[10px] font-semibold"
           style={{
             background: "var(--ds-theme-surface-default)",
             color: "var(--ds-theme-content-default)",
             border: "1px solid var(--ds-theme-border-subtle)",
+            borderRadius: 0,
           }}
         >
           ⌘K
@@ -74,10 +85,11 @@ export function Header() {
         aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
         className="grid place-items-center transition-colors"
         style={{
-          width: 36,
-          height: 36,
-          borderRadius: 9999,
-          background: "var(--ds-theme-surface-subdued)",
+          width: 32,
+          height: 32,
+          borderRadius: 0,
+          background: "transparent",
+          border: "1px solid var(--ds-theme-border-subtle)",
           color: "var(--ds-theme-content-default)",
         }}
       >
@@ -89,10 +101,11 @@ export function Header() {
         aria-label="Abrir configurações"
         className="grid place-items-center transition-colors"
         style={{
-          width: 36,
-          height: 36,
-          borderRadius: 9999,
-          background: "var(--ds-theme-surface-subdued)",
+          width: 32,
+          height: 32,
+          borderRadius: 0,
+          background: "transparent",
+          border: "1px solid var(--ds-theme-border-subtle)",
           color: "var(--ds-theme-content-default)",
         }}
       >

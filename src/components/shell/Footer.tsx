@@ -35,11 +35,13 @@ export function Footer() {
 
   return (
     <footer
-      className="flex h-10 shrink-0 items-center gap-3 border-t px-3 text-xs"
+      className="flex h-9 shrink-0 items-center gap-3 border-t px-3 text-[10px] uppercase"
       style={{
         background: "var(--ds-theme-surface-default)",
         borderColor: "var(--ds-theme-border-subtle)",
         color: "var(--ds-theme-content-muted)",
+        fontFamily: "var(--font-mono)",
+        letterSpacing: "0.08em",
       }}
     >
       {isMobile && (
@@ -50,18 +52,19 @@ export function Footer() {
             className="inline-flex items-center gap-1.5"
             style={{
               padding: "4px 10px",
-              borderRadius: 9999,
+              borderRadius: 0,
+              border: "1px solid var(--ds-theme-border-subtle)",
               background:
                 overlay === "comms"
-                  ? "var(--ds-component-navigation-item-bg-active)"
-                  : "var(--ds-theme-surface-subdued)",
+                  ? "var(--signal, #D71E33)"
+                  : "transparent",
               color:
                 overlay === "comms"
-                  ? "var(--ds-component-navigation-item-text-active)"
+                  ? "#fff"
                   : "var(--ds-theme-content-default)",
             }}
           >
-            <Mail size={12} /> Comms
+            <Mail size={12} /> COMMS
           </button>
           <button
             type="button"
@@ -69,18 +72,19 @@ export function Footer() {
             className="inline-flex items-center gap-1.5"
             style={{
               padding: "4px 10px",
-              borderRadius: 9999,
+              borderRadius: 0,
+              border: "1px solid var(--ds-theme-border-subtle)",
               background:
                 overlay === "modules"
-                  ? "var(--ds-component-navigation-item-bg-active)"
-                  : "var(--ds-theme-surface-subdued)",
+                  ? "var(--signal, #D71E33)"
+                  : "transparent",
               color:
                 overlay === "modules"
-                  ? "var(--ds-component-navigation-item-text-active)"
+                  ? "#fff"
                   : "var(--ds-theme-content-default)",
             }}
           >
-            <Grid3x3 size={12} /> Apps
+            <Grid3x3 size={12} /> APPS
           </button>
         </>
       )}
@@ -88,19 +92,19 @@ export function Footer() {
         <span className="inline-flex items-center gap-1.5">
           <Circle size={8} fill={dot} stroke="none" />
           <span style={{ color: "var(--ds-theme-content-default)" }}>
-            {status === "syncing" ? "Sincronizando…" : status === "offline" ? "Offline" : "Sincronizado"}
+            {status === "syncing" ? "SINCRONIZANDO" : status === "offline" ? "OFFLINE" : "SINCRONIZADO"}
           </span>
         </span>
         <span className="inline-flex items-center gap-1.5">
           {online ? <Cloud size={12} /> : <CloudOff size={12} />}
-          <span>{online ? "Online" : "Sem rede"}</span>
+          <span>{online ? "ONLINE" : "SEM REDE"}</span>
         </span>
       </div>
       <span
         className="truncate"
         style={{ color: "var(--ds-theme-content-subtle)" }}
       >
-        {appLabel} · pronto
+        [ {appLabel.toUpperCase()} · PRONTO ]
       </span>
       <button
         type="button"
@@ -110,26 +114,28 @@ export function Footer() {
         className="inline-flex items-center gap-1.5"
         style={{
           padding: "4px 10px",
-          borderRadius: 9999,
-          background: "var(--ds-theme-surface-subdued)",
+          borderRadius: 0,
+          border: "1px solid var(--ds-theme-border-subtle)",
+          background: "transparent",
           color: "var(--ds-theme-content-default)",
         }}
       >
-        <Shield size={12} aria-hidden="true" /> Consent demo
+        <Shield size={12} aria-hidden="true" /> CONSENT DEMO
       </button>
       <Link
         to="/configuracoes/permissoes"
         className="inline-flex items-center gap-1.5"
         style={{
           padding: "4px 10px",
-          borderRadius: 9999,
-          background: "var(--ds-theme-surface-subdued)",
+          borderRadius: 0,
+          border: "1px solid var(--ds-theme-border-subtle)",
+          background: "transparent",
           color: "var(--ds-theme-content-default)",
           textDecoration: "none",
         }}
         aria-label="Abrir permissões"
       >
-        <KeyRound size={12} aria-hidden="true" /> Permissões
+        <KeyRound size={12} aria-hidden="true" /> PERMISSÕES
       </Link>
     </footer>
   );

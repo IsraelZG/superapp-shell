@@ -15,21 +15,14 @@ function RailItem({ id, table, activeKey }: { id: string; table: "commsMenu" | "
       onClick={setActive}
       title={label}
       aria-label={label}
-      className="grid place-items-center transition-colors"
+      data-active={isActive ? "true" : "false"}
+      className="brut-rail-item grid place-items-center transition-colors relative"
       style={{
-        width: 44,
+        width: 48,
         height: 44,
-        borderRadius: 14,
-        background: isActive ? "var(--ds-component-navigation-item-bg-active)" : "transparent",
         color: isActive
-          ? "var(--ds-component-navigation-item-text-active)"
-          : "var(--ds-component-navigation-item-text-inactive)",
-      }}
-      onMouseEnter={(e) => {
-        if (!isActive) e.currentTarget.style.background = "var(--ds-component-navigation-item-bg-hover)";
-      }}
-      onMouseLeave={(e) => {
-        if (!isActive) e.currentTarget.style.background = "transparent";
+          ? "var(--ds-theme-content-strong)"
+          : "var(--ds-theme-content-muted)",
       }}
     >
       {Icon ? <Icon size={20} /> : null}
@@ -42,17 +35,22 @@ export function CommsRail() {
   const collapsed = useValue("commsRailCollapsed") as boolean;
   const toggle = useSetValueCallback("commsRailCollapsed", () => !collapsed, [collapsed]);
   return (
-    <div className="flex h-full w-full flex-col items-center gap-2 py-3">
+    <div
+      className="flex h-full w-full flex-col items-center gap-1 py-3"
+      style={{ borderRight: "1px solid var(--ds-theme-border-subtle)" }}
+    >
       <div
         className="grid place-items-center"
         style={{
           width: 36,
           height: 36,
-          borderRadius: 12,
+          borderRadius: 0,
           background: "var(--ds-theme-intent-accent-fill)",
           color: "var(--ds-theme-intent-accent-on-fill)",
-          fontWeight: 700,
+          fontWeight: 800,
           fontSize: 12,
+          fontFamily: "var(--font-display)",
+          letterSpacing: "0.02em",
         }}
       >
         SA
@@ -68,7 +66,7 @@ export function CommsRail() {
         onClick={toggle}
         aria-label="Colapsar comunicações"
         className="grid place-items-center"
-        style={{ width: 36, height: 36, borderRadius: 12, color: "var(--ds-theme-content-muted)" }}
+        style={{ width: 36, height: 36, borderRadius: 0, color: "var(--ds-theme-content-muted)" }}
       >
         {collapsed ? <ChevronsRight size={16} /> : <ChevronsLeft size={16} />}
       </button>
@@ -79,15 +77,21 @@ export function CommsRail() {
 export function ModulesRail() {
   const ids = useSortedRowIds("modules", "order");
   return (
-    <div className="flex h-full w-full flex-col items-center gap-2 py-3">
+    <div
+      className="flex h-full w-full flex-col items-center gap-1 py-3"
+      style={{ borderLeft: "1px solid var(--ds-theme-border-subtle)" }}
+    >
       <div
-        className="grid place-items-center text-xs font-semibold uppercase tracking-wide"
+        className="grid place-items-center text-xs font-semibold uppercase"
         style={{
           width: 36,
           height: 36,
-          borderRadius: 12,
+          borderRadius: 0,
+          border: "1px solid var(--ds-theme-border-subtle)",
           background: "var(--ds-theme-surface-subdued)",
           color: "var(--ds-theme-content-muted)",
+          fontFamily: "var(--font-mono)",
+          letterSpacing: "0.12em",
         }}
       >
         M
