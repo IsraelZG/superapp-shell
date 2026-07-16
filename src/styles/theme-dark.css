@@ -23,12 +23,12 @@
   --ds-theme-content-disabled: #52525b;
   --ds-theme-content-on-inverse: #09090b;
   --ds-theme-content-on-accent: #ffffff;
-  --ds-theme-content-link: #a78bfa;
-  --ds-theme-content-link-hover: #c4b5fd;
+  --ds-theme-content-link: #D1FF00;
+  --ds-theme-content-link-hover: #E5FF66;
   --ds-theme-border-subtle: #27272a;
   --ds-theme-border-default: #3f3f46;
   --ds-theme-border-strong: #71717a;
-  --ds-theme-border-focus: #a78bfa;
+  --ds-theme-border-focus: #D71E33;
   --ds-theme-border-inverse: #f4f4f5;
   --ds-theme-intent-primary-fill: #ffffff;
   --ds-theme-intent-primary-fill-hover: #f4f4f5;
@@ -102,7 +102,7 @@
   --ds-theme-gradient-sunset-subtle: linear-gradient(135deg, #451A03 0%, #500724 100%);
   --ds-theme-gradient-mint-light: linear-gradient(135deg, #052E16 0%, #2E1065 100%);
   --ds-theme-gradient-neutral-rise: linear-gradient(180deg, #09090B 0%, #18181B 100%);
-  --ds-component-button-radius: 9999px;
+  --ds-component-button-radius: 0px;
   --ds-component-button-font-weight: 600;
   --ds-component-button-height-sm: 32px;
   --ds-component-button-height-md: 40px;
@@ -124,7 +124,7 @@
   --ds-component-button-danger-bg: #ef4444;
   --ds-component-button-danger-bg-hover: #f87171;
   --ds-component-button-danger-text: #ffffff;
-  --ds-component-input-radius: 16px;
+  --ds-component-input-radius: 0px;
   --ds-component-input-height-sm: 32px;
   --ds-component-input-height-md: 40px;
   --ds-component-input-height-lg: 48px;
@@ -138,13 +138,13 @@
   --ds-component-input-border-focus: #a78bfa;
   --ds-component-input-border-error: #b91c1c;
   --ds-component-input-shadow-focus: 0 0 0 4px rgba(167, 139, 250, 0.40);
-  --ds-component-card-radius: 24px;
+  --ds-component-card-radius: 0px;
   --ds-component-card-padding: 24px;
   --ds-component-card-bg: #27272a;
   --ds-component-card-border: #27272a;
   --ds-component-card-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.50), 0 1px 3px 0 rgba(0, 0, 0, 0.40);
   --ds-component-card-shadow-hover: 0 2px 4px -1px rgba(0, 0, 0, 0.50), 0 4px 8px -2px rgba(0, 0, 0, 0.40);
-  --ds-component-modal-radius: 32px;
+  --ds-component-modal-radius: 0px;
   --ds-component-modal-padding: 32px;
   --ds-component-modal-bg: #27272a;
   --ds-component-modal-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.70), 0 48px 96px -24px rgba(0, 0, 0, 0.80);
@@ -152,17 +152,17 @@
   --ds-component-modal-width-sm: 384px;
   --ds-component-modal-width-md: 512px;
   --ds-component-modal-width-lg: 720px;
-  --ds-component-popover-radius: 20px;
+  --ds-component-popover-radius: 0px;
   --ds-component-popover-padding: 12px;
   --ds-component-popover-bg: #3f3f46;
   --ds-component-popover-border: #27272a;
   --ds-component-popover-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.50), 0 12px 24px -4px rgba(0, 0, 0, 0.50);
-  --ds-component-tooltip-radius: 12px;
+  --ds-component-tooltip-radius: 0px;
   --ds-component-tooltip-padding-x: 8px;
   --ds-component-tooltip-padding-y: 4px;
   --ds-component-tooltip-bg: #fafafa;
   --ds-component-tooltip-text: #09090b;
-  --ds-component-tab-radius: 9999px;
+  --ds-component-tab-radius: 0px;
   --ds-component-tab-padding-x: 16px;
   --ds-component-tab-padding-y: 8px;
   --ds-component-tab-bg-active: #ffffff;
@@ -185,7 +185,7 @@
   --ds-component-badge-danger-text: #fecaca;
   --ds-component-badge-info-bg: #172554;
   --ds-component-badge-info-text: #bfdbfe;
-  --ds-component-checkbox-radius: 8px;
+  --ds-component-checkbox-radius: 0px;
   --ds-component-checkbox-size: 20px;
   --ds-component-checkbox-bg-checked: #ffffff;
   --ds-component-checkbox-icon-checked: #09090b;
@@ -202,7 +202,7 @@
   --ds-component-navigation-sidebar-width-collapsed: 64px;
   --ds-component-navigation-sidebar-bg: #09090b;
   --ds-component-navigation-sidebar-bg-inverse: #fafafa;
-  --ds-component-navigation-item-radius: 16px;
+  --ds-component-navigation-item-radius: 0px;
   --ds-component-navigation-item-height: 40px;
   --ds-component-navigation-item-padding-x: 12px;
   --ds-component-navigation-item-gap: 12px;
@@ -210,7 +210,7 @@
   --ds-component-navigation-item-text-active: #09090b;
   --ds-component-navigation-item-bg-hover: #18181b;
   --ds-component-navigation-item-text-inactive: #a1a1aa;
-  --ds-component-message-radius: 24px;
+  --ds-component-message-radius: 0px;
   --ds-component-message-padding-x: 16px;
   --ds-component-message-padding-y: 12px;
   --ds-component-message-bg-sent: #ffffff;
@@ -228,7 +228,7 @@
   --ds-component-avatar-size-2xl: 96px;
   --ds-component-avatar-fallback-bg: #2e1065;
   --ds-component-avatar-fallback-text: #ddd6fe;
-  --ds-component-alert-radius: 20px;
+  --ds-component-alert-radius: 0px;
   --ds-component-alert-padding-x: 16px;
   --ds-component-alert-padding-y: 12px;
   --ds-component-alert-gap: 12px;
@@ -249,11 +249,11 @@
   --ds-component-alert-danger-text: #fecaca;
   --ds-component-alert-danger-border: #b91c1c;
   --ds-component-alert-danger-icon: #ef4444;
-  --ds-component-kbd-radius: 8px;
+  --ds-component-kbd-radius: 0px;
   --ds-component-kbd-font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace;
   --ds-component-kbd-bg: #18181b;
   --ds-component-kbd-border: #3f3f46;
-  --ds-component-toast-radius: 24px;
+  --ds-component-toast-radius: 0px;
   --ds-component-toast-padding-x: 16px;
   --ds-component-toast-padding-y: 12px;
   --ds-component-toast-gap: 12px;
@@ -270,6 +270,6 @@
   --ds-component-toast-accent-info: #3b82f6;
   --ds-focus-ring-width: 2px;
   --ds-focus-ring-offset: 2px;
-  --ds-focus-ring-color: #a78bfa;
+  --ds-focus-ring-color: #D71E33;
   --ds-focus-ring-shadow: 0 0 0 4px rgba(167, 139, 250, 0.40);
 }
