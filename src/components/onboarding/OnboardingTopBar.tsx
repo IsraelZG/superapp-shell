@@ -34,27 +34,31 @@ export function OnboardingTopBar() {
         style={{
           height: 28,
           padding: "0 10px",
-          borderRadius: 9999,
-          background: "var(--ds-theme-intent-accent-subtle)",
-          color: "var(--ds-theme-intent-accent-on-subtle)",
-          fontSize: 11,
-          fontWeight: 600,
-          letterSpacing: 0.2,
+          borderRadius: 0,
+          border: "1px solid var(--ds-theme-border-subtle)",
+          background: "transparent",
+          color: "var(--ds-theme-content-strong)",
+          fontFamily: "var(--font-mono)",
+          fontSize: 10,
+          fontWeight: 500,
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
         }}
       >
-        <ShieldIcon />
-        <span>Local-first · P2P</span>
+        <span>[ Local-first · P2P ]</span>
       </div>
 
       <div className="flex items-center gap-2">
         <Select value={locale} onValueChange={setLocale}>
           <SelectTrigger
             aria-label="Selecionar idioma"
-            className="h-9 gap-2 rounded-full border-0 text-xs"
+            className="h-9 gap-2 border text-xs font-mono-label"
             style={{
               background: "var(--ds-theme-surface-subdued)",
               color: "var(--ds-theme-content-default)",
               paddingInline: 12,
+              borderRadius: 0,
+              borderColor: "var(--ds-theme-border-subtle)",
             }}
           >
             <Globe size={14} aria-hidden />
@@ -77,7 +81,8 @@ export function OnboardingTopBar() {
           style={{
             width: 36,
             height: 36,
-            borderRadius: 9999,
+            borderRadius: 0,
+            border: "1px solid var(--ds-theme-border-subtle)",
             background: "var(--ds-theme-surface-subdued)",
             color: "var(--ds-theme-content-default)",
             outlineColor: "var(--ds-theme-border-focus)",
