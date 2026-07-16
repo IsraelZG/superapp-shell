@@ -78,88 +78,121 @@ export function CentralApp({
   }
 
   return (
-    <div className="flex h-full w-full flex-col overflow-y-auto">
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-6">
-        <section
-          className="flex items-center gap-4"
-          style={{
-            padding: "var(--ds-component-card-padding)",
-            background: "var(--ds-theme-surface-default)",
-            border: "1px solid var(--ds-theme-border-subtle)",
-            borderRadius: "var(--ds-component-card-radius)",
-            boxShadow: "var(--ds-component-card-shadow)",
-          }}
-        >
-          <div
-            className="grid shrink-0 place-items-center"
-            style={{
-              width: 56,
-              height: 56,
-              borderRadius: 20,
-              background: "var(--ds-theme-intent-accent-subtle)",
-              color: "var(--ds-theme-intent-accent-on-subtle)",
-            }}
-          >
-            {Icon ? <Icon size={26} /> : null}
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-xs font-medium uppercase tracking-wide" style={{ color: "var(--ds-theme-content-subtle)" }}>
-              App ativo
-            </p>
-            <h2 className="truncate text-2xl font-semibold" style={{ color: "var(--ds-theme-content-strong)" }}>
-              {label}
-            </h2>
-            <p className="mt-1 text-sm" style={{ color: "var(--ds-theme-content-muted)" }}>
-              Módulo carregado a partir da store TinyBase — trocar app no menu direito abre este espaço.
-            </p>
-          </div>
-          <div className="flex shrink-0 gap-2">
-            {onSplit && (
-              <button
-                type="button"
-                onClick={onSplit}
-                title="Dividir coluna (exceção)"
-                className="grid place-items-center transition-colors"
-                style={{ width: 40, height: 40, borderRadius: 12, background: "var(--ds-theme-surface-subdued)", color: "var(--ds-theme-content-default)" }}
+    <div className="relative flex h-full w-full flex-col overflow-y-auto" style={{ background: "var(--ds-theme-surface-canvas)" }}>
+      <div
+        aria-hidden
+        className="text-ghost pointer-events-none absolute inset-x-0 bottom-0 select-none whitespace-nowrap text-center"
+        style={{ fontSize: "clamp(6rem, 18vw, 16rem)" }}
+      >
+        {label.toUpperCase()}
+      </div>
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-10 p-8 brut-stagger">
+        <div className="flex items-baseline justify-between border-b border-[color:var(--ds-theme-border-subtle)] pb-3">
+          <span className="brut-section-label">[ 001 · APP ATIVO ]</span>
+          {onSplit && (
+            <button
+              type="button"
+              onClick={onSplit}
+              title="Dividir coluna (exceção)"
+              className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.12em]"
+              style={{
+                padding: "6px 10px",
+                borderRadius: 0,
+                background: "transparent",
+                color: "var(--ds-theme-content-default)",
+                border: "1px solid var(--ds-theme-border-subtle)",
+                fontFamily: "var(--font-mono)",
+              }}
+            >
+              <Columns2 size={12} /> DIVIDIR
+            </button>
+          )}
+        </div>
+
+        <section className="flex flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <div
+              className="grid shrink-0 place-items-center"
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: 0,
+                background: "var(--ds-theme-content-strong)",
+                color: "var(--ds-theme-surface-canvas)",
+              }}
+            >
+              {Icon ? <Icon size={26} /> : null}
+            </div>
+            <div className="min-w-0 flex-1">
+              <h1
+                className="truncate"
+                style={{
+                  color: "var(--ds-theme-content-strong)",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.03em",
+                  lineHeight: 0.9,
+                  fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                }}
               >
-                <Columns2 size={16} />
-              </button>
-            )}
+                {label}
+              </h1>
+              <p className="mt-2 brut-meta" style={{ maxWidth: 640 }}>
+                MÓDULO CARREGADO DA STORE TINYBASE · TROCA VIA RAIL LATERAL
+              </p>
+            </div>
           </div>
         </section>
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="border-b border-[color:var(--ds-theme-border-subtle)] pb-3">
+          <span className="brut-section-label">[ 002 · ACESSO RÁPIDO ]</span>
+        </div>
+
+        <div className="grid gap-0 md:grid-cols-2">
           {[
             { title: "Feed", desc: "Toque em um item para abri-lo como nova coluna." },
             { title: "Detalhes", desc: "Este card também pode virar coluna dedicada." },
-          ].map((c) => (
+          ].map((c, i) => (
             <button
               key={c.title}
               type="button"
               onClick={() => onOpenColumn?.(`${label} — ${c.title}`)}
-              className="text-left transition-transform hover:-translate-y-0.5"
+              className="group text-left transition-colors"
               style={{
-                background: "var(--ds-component-card-bg)",
+                background: "transparent",
                 border: "1px solid var(--ds-theme-border-subtle)",
-                borderRadius: "var(--ds-component-card-radius)",
-                padding: "var(--ds-component-card-padding)",
-                boxShadow: "var(--ds-component-card-shadow)",
+                borderRadius: 0,
+                padding: "24px",
+                marginLeft: i > 0 ? "-1px" : 0,
               }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--ds-theme-surface-subdued)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-semibold" style={{ color: "var(--ds-theme-content-strong)" }}>
+                <h3
+                  style={{
+                    color: "var(--ds-theme-content-strong)",
+                    fontFamily: "var(--font-display)",
+                    textTransform: "uppercase",
+                    fontWeight: 700,
+                    fontSize: "1.5rem",
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1,
+                  }}
+                >
                   {c.title}
                 </h3>
                 <PanelRightOpen size={16} style={{ color: "var(--ds-theme-content-muted)" }} />
               </div>
-              <p className="mt-1 text-sm" style={{ color: "var(--ds-theme-content-muted)" }}>
+              <p className="mt-3 text-sm" style={{ color: "var(--ds-theme-content-muted)" }}>
                 {c.desc}
               </p>
               <span
-                className="mt-3 inline-flex items-center gap-1 text-xs font-semibold"
-                style={{ color: "var(--ds-theme-intent-accent-fill)" }}
+                className="mt-4 inline-flex items-center gap-1 text-[10px] font-semibold uppercase"
+                style={{ color: "var(--signal, #D71E33)", fontFamily: "var(--font-mono)", letterSpacing: "0.12em" }}
               >
-                <Plus size={12} /> abrir em nova coluna
+                <Plus size={12} /> ABRIR EM NOVA COLUNA
               </span>
             </button>
           ))}
