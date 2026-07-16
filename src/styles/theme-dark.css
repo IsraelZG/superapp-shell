@@ -6,9 +6,9 @@
 :root[data-theme="dark"], .theme-dark {
   --ds-theme-name: dark;
   --ds-theme-scheme: dark;
-  --ds-theme-surface-canvas: #09090b;
-  --ds-theme-surface-subdued: #18181b;
-  --ds-theme-surface-default: #18181b;
+  --ds-theme-surface-canvas: #121212;
+  --ds-theme-surface-subdued: #1A1A1A;
+  --ds-theme-surface-default: #1A1A1A;
   --ds-theme-surface-raised: #27272a;
   --ds-theme-surface-overlay: #27272a;
   --ds-theme-surface-floating: #3f3f46;
@@ -37,8 +37,8 @@
   --ds-theme-intent-primary-on-subtle: #ddd6fe;
   --ds-theme-intent-primary-border: #f4f4f5;
   --ds-theme-intent-primary-strong: #c4b5fd;
-  --ds-theme-intent-accent-fill: #8b5cf6;
-  --ds-theme-intent-accent-fill-hover: #a78bfa;
+  --ds-theme-intent-accent-fill: #E63347;
+  --ds-theme-intent-accent-fill-hover: #D71E33;
   --ds-theme-intent-accent-on-fill: #ffffff;
   --ds-theme-intent-accent-subtle: #2e1065;
   --ds-theme-intent-accent-on-subtle: #ddd6fe;
@@ -135,7 +135,7 @@
   --ds-component-input-placeholder: #71717a;
   --ds-component-input-border: #3f3f46;
   --ds-component-input-border-hover: #71717a;
-  --ds-component-input-border-focus: #a78bfa;
+  --ds-component-input-border-focus: #D71E33;
   --ds-component-input-border-error: #b91c1c;
   --ds-component-input-shadow-focus: 0 0 0 4px rgba(167, 139, 250, 0.40);
   --ds-component-card-radius: 0px;
