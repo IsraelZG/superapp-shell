@@ -14,13 +14,14 @@ function Chip({
     <button
       type="button"
       onClick={() => onRestore(id, name, component)}
-      className="inline-flex items-center gap-2 text-xs font-semibold transition-colors"
+      className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.08em] transition-colors"
       style={{
         padding: "6px 10px",
-        borderRadius: 9999,
-        background: "var(--ds-theme-surface-subdued)",
+        borderRadius: 0,
+        background: "transparent",
         color: "var(--ds-theme-content-default)",
         border: "1px solid var(--ds-theme-border-subtle)",
+        fontFamily: "var(--font-mono)",
       }}
       title="Restaurar coluna"
     >
@@ -46,10 +47,10 @@ export function CollapsedStack({
       }}
     >
       <span
-        className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide"
-        style={{ color: "var(--ds-theme-content-subtle)" }}
+        className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase"
+        style={{ color: "var(--ds-theme-content-subtle)", fontFamily: "var(--font-mono)", letterSpacing: "0.12em" }}
       >
-        <Layers size={12} /> Colunas recolhidas
+        <Layers size={12} /> [ COLUNAS RECOLHIDAS ]
       </span>
       {ids.map((id) => (
         <Chip key={id} id={id} onRestore={onRestore} />
