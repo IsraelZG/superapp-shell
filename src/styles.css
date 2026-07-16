@@ -226,3 +226,143 @@ body,
 @keyframes stagger-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 .animate-marquee { animation: marquee var(--marquee-duration) linear infinite; }
 .animate-stagger-in { animation: stagger-in 600ms var(--ease-out-expo) both; }
+
+/* =====================================================================
+ * BRUTALIST ENFORCEMENT
+ * Legacy modules use inline `borderRadius: 8/10/12/14/16/18/20/24` and
+ * `boxShadow: var(--ds-theme-shadow-...)` all over. Rather than touching
+ * every file, we neutralize soft radii and elevation here. Pill (9999),
+ * badges/avatars keep their `border-radius: 9999px`.
+ * ===================================================================== */
+[style*="border-radius: 6px"],
+[style*="border-radius:6px"],
+[style*="border-radius: 8px"],
+[style*="border-radius:8px"],
+[style*="border-radius: 10px"],
+[style*="border-radius:10px"],
+[style*="border-radius: 12px"],
+[style*="border-radius:12px"],
+[style*="border-radius: 14px"],
+[style*="border-radius:14px"],
+[style*="border-radius: 16px"],
+[style*="border-radius:16px"],
+[style*="border-radius: 18px"],
+[style*="border-radius:18px"],
+[style*="border-radius: 20px"],
+[style*="border-radius:20px"],
+[style*="border-radius: 24px"],
+[style*="border-radius:24px"],
+[style*="border-radius: 28px"],
+[style*="border-radius:28px"],
+[style*="border-radius: 32px"],
+[style*="border-radius:32px"],
+[style*="border-radius: var(--ds-component-card-radius)"],
+[style*="border-radius: var(--ds-component-modal-radius)"],
+[style*="border-radius: var(--ds-component-popover-radius)"],
+[style*="border-radius: var(--ds-component-button-radius)"],
+[style*="border-radius: var(--ds-component-input-radius)"] {
+  border-radius: 0 !important;
+}
+
+/* Nuke inline soft shadows referencing the elevation tokens. */
+[style*="box-shadow: var(--ds-theme-shadow-xs)"],
+[style*="box-shadow: var(--ds-theme-shadow-sm)"],
+[style*="box-shadow: var(--ds-theme-shadow-md)"],
+[style*="box-shadow: var(--ds-theme-shadow-lg)"],
+[style*="box-shadow: var(--ds-theme-shadow-xl)"],
+[style*="box-shadow: var(--ds-theme-shadow-2xl)"],
+[style*="box-shadow: var(--ds-component-card-shadow)"],
+[style*="box-shadow: var(--ds-component-modal-shadow)"],
+[style*="box-shadow: var(--ds-component-popover-shadow)"],
+[style*="box-shadow: var(--ds-component-toast-shadow)"] {
+  box-shadow: none !important;
+}
+
+/* Editorial rhythm helpers */
+.brut-section-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--ds-theme-content-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.brut-section-label::before {
+  content: "——";
+  color: var(--ds-theme-content-subtle);
+  letter-spacing: 0;
+}
+.brut-h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  color: var(--ds-theme-content-strong);
+  text-align: left;
+}
+.brut-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  color: var(--ds-theme-content-strong);
+}
+.brut-meta {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.6875rem;
+  color: var(--ds-theme-content-muted);
+}
+.brut-hairline-b { border-bottom: 1px solid var(--ds-theme-border-subtle); }
+.brut-hairline-t { border-top: 1px solid var(--ds-theme-border-subtle); }
+.brut-hairline { border: 1px solid var(--ds-theme-border-subtle); }
+
+.brut-stagger > * { animation: stagger-in 500ms var(--ease-out-expo) both; }
+.brut-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.brut-stagger > *:nth-child(2) { animation-delay: 60ms; }
+.brut-stagger > *:nth-child(3) { animation-delay: 120ms; }
+.brut-stagger > *:nth-child(4) { animation-delay: 180ms; }
+.brut-stagger > *:nth-child(5) { animation-delay: 240ms; }
+.brut-stagger > *:nth-child(6) { animation-delay: 300ms; }
+.brut-stagger > *:nth-child(7) { animation-delay: 360ms; }
+.brut-stagger > *:nth-child(8) { animation-delay: 420ms; }
+
+/* Nav-rail item: active = 2px signal bar on the leading edge, no bg pill */
+.brut-rail-item {
+  position: relative;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+.brut-rail-item[data-active="true"] {
+  color: var(--ds-theme-content-strong) !important;
+}
+.brut-rail-item[data-active="true"]::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 2px;
+  background: var(--signal, #D71E33);
+}
+.brut-rail-item:hover:not([data-active="true"]) {
+  background: var(--ds-theme-surface-subdued) !important;
+}
+
+/* Force radius: 0 on all shadcn semantic border-radius vars */
+:root[data-theme="light"],
+:root[data-theme="dark"] {
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
+}
