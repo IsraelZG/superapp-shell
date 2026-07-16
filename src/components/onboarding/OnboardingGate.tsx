@@ -32,10 +32,17 @@ export function OnboardingGate() {
 function OnboardingChrome({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="flex min-h-dvh w-full items-center justify-center px-4 py-8"
+      className="relative flex min-h-dvh w-full items-center justify-center overflow-hidden px-4 py-8"
       style={{ background: "var(--ds-theme-surface-canvas)" }}
     >
-      {children}
+      <div
+        aria-hidden
+        className="text-ghost pointer-events-none absolute inset-x-0 -bottom-4 select-none whitespace-nowrap text-center"
+        style={{ fontSize: "clamp(6rem, 22vw, 22rem)" }}
+      >
+        SUPERAPP
+      </div>
+      <div className="relative z-10 w-full flex justify-center">{children}</div>
     </div>
   );
 }
